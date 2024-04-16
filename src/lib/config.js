@@ -26,7 +26,7 @@ export const ortDists = {
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix_wasm: {
-    version: 'internal.20240411 (Gelu)',
+    version: 'internal.20240416 (Gelu)',
     url: '../ort/ort.all.min.js'
   }
 }
