@@ -52,16 +52,16 @@ export const uniqueBackends = [
 const generateEsrganConfigs = () => {
   const configs = [
     // tile size, float bits, est. VRAM requirement
-    [64, 32, 1],
-    [64, 16, 1],
-    [128, 32, 2],
-    [128, 16, 2],
+    // [64, 32, 1],
+    // [64, 16, 1],
+    // [128, 32, 2],
+    // [128, 16, 2],
     [256, 32, 4],
     [256, 16, 4],
-    [512, 32, 8],
-    [512, 16, 8],
-    [1024, 32, 16],
-    [1024, 16, 16],
+    // [512, 32, 8],
+    // [512, 16, 8],
+    // [1024, 32, 16],
+    // [1024, 16, 16],
   ]
   return configs.map(([tile, fp, vram]) => ({
     category: 'Image Super-Resolution',
@@ -1657,21 +1657,55 @@ export let models = [
   },
   {
     category: 'Text To Image',
-    id: 'sd_turbo_vae_encoder_fp16',
-    name: 'SD Turbo VAE Encoder',
+    id: 'sd_turbo_text_encoder_layernorm_fp16',
+    name: 'SD Turbo Text Encoder (layernorm)',
     description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
-    model: 'sd-turbo/vae_encoder/model.onnx',
-    size: '65.2 MB',
+    model: 'fp16/sd-turbo/text_encoder/model_layernorm.onnx',
+    size: '649 MB',
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'sample': ['float16', 'random', [1, 4, 64, 64], { "batch_size": 1, "channels": 4, "height": 64, "width": 64 }]
+      'input_ids': ['int32', 1, [1, 77], {}]
+    }],
+    inputstip: '[1, 77]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_turbo_unet_layernorm_fp16',
+    name: 'SD Turbo UNet (layernorm)',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: '',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'fp16/sd-turbo/unet/model_layernorm.onnx',
+    size: '1.61 GB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'sample': ['float16', 1, [1, 4, 64, 64], {}],
+      'timestep': ['float16', 1, [1], {}],
+      'encoder_hidden_states': ['float16', 1, [1, 77, 1024], {}]
+    }],
+    inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_turbo_vae_decoder_fp16',
+    name: 'SD Turbo VAE Decoder',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: '',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'fp16/sd-turbo/vae_decoder/model.onnx',
+    size: '94.5 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "batch": 1, "channels": 4, "height": 64, "width": 64 }]
+    
     }],
     inputstip: '[1, 4, 64, 64]'
   },
-
   {
     category: 'Text To Image',
     id: 'sd_1_5_text_encoder_fp32',
@@ -1691,11 +1725,11 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_1_5_unet_fp16',
-    name: 'SD 1.5 UNet',
+    name: 'SD 1.5 UNet (layernorm)',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: 'Large model',
     source: 'https://huggingface.co/runwayml/stable-diffusion-v1-5',
-    model: 'stable-diffusion/sd-unet-v1.5-model-b2c4h64w64s77-float16-compute-and-inputs.onnx',
+    model: 'fp16/sd-unet-v1.5-model-b2c4h64w64s77-float16-compute-and-inputs-layernorm.onnx',
     size: '1.60 GB',
     format: 'onnx',
     datatype: 'fp16',
