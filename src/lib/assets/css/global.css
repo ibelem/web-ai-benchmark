@@ -560,6 +560,10 @@ header .nav {
   background-color: var(--med-01);
 }
 
+.result .q .data .throughput, .figure .throughput {
+  background-color: var(--throughput-01);
+}
+
 .result .q .data .ninety, .figure .ninety {
   background-color: var(--ninety-01);
 }
@@ -589,6 +593,12 @@ header .nav {
   border: 1px solid var(--tofirst);
   padding: 0px 10px;
   color: var(--tofirst);
+}
+
+.figure .throughput:hover {
+  border: 1px solid var(--throughput);
+  padding: 0px 10px;
+  color: var(--throughput);
 }
 
 .figure .ninety:hover {
@@ -733,6 +743,11 @@ header .nav {
 
 .result .q .data .tofirst:hover, .figure .tofirst.true {
   background-color: var(--tofirst);
+  color: var(--white);
+}
+
+.result .q .data .throughput:hover, .figure .throughput.true {
+  background-color: var(--throughput);
   color: var(--white);
 }
 

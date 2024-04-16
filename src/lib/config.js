@@ -26,7 +26,7 @@ export const ortDists = {
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix_wasm: {
-    version: 'internal.20240202',
+    version: 'internal.20240411 (Gelu)',
     url: '../ort/ort.all.min.js'
   }
 }
@@ -70,7 +70,7 @@ const generateEsrganConfigs = () => {
     description: `Image Super-Resolution x4, tile size = ${tile}, recommended VRAM >${vram} GB`,
     note: tile == 1024 ? 'Out-of-memory test model, run this model tests individually rather than together with other models. Slow on CPU' : 'Slow on CPU',
     source: `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
-    model: fp == 16 ? `fp16/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx` : `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
+    model: fp == 16 ? `fp16/realesrgan/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx` : `realesrgan/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
     size: fp == 16 ? "36 MB" : '65 MB',
     format: 'onnx',
     datatype: `fp${fp}`,
@@ -2298,7 +2298,7 @@ export let models = [
   {
     category: 'Speech Recognition',
     id: 'whisper_base_decoder_static_merged',
-    name: 'Whisper base Decoder Static Shape KV-Cache',
+    name: 'Whisper Base Decoder Static Shape KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
     note: '',
     source: 'customized',
@@ -2316,7 +2316,7 @@ export let models = [
   {
     category: 'Speech Recognition',
     id: 'whisper_base_decoder_static',
-    name: 'Whisper base Decoder Static Shape Non-KV-Cache',
+    name: 'Whisper Base Decoder Static Shape Non-KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
     note: '',
     source: 'customized',
@@ -2334,7 +2334,7 @@ export let models = [
   {
     category: 'Speech Recognition',
     id: 'whisper_base_encoder',
-    name: 'Whisper base Encoder',
+    name: 'Whisper Base Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
     note: '',
     source: 'customized',
@@ -2396,6 +2396,58 @@ export let models = [
   //   }],
   //   inputstip: '[1, 80, 3000]'
   // },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_base_decoder_static_gelu_fp16_merged',
+    name: 'Whisper Base Decoder Static Shape KV-Cache (Gelu)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'fp16/whisper-base/whisper_base_decoder_static_kvcache_128_lm_fp16_layernorm_gelu.onnx',
+    size: '143 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 1], {}],
+      'attention_mask': ['int64', 1n, [1, 128], {}],
+      'position_ids': ['int32', 1, [1], {}]
+    }],
+    inputstip: '[1, 1] [1, 128] [1]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_base_decoder_static_gelu_fp16',
+    name: 'Whisper Base Decoder Static Shape Non-KV-Cache (Gelu)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'fp16/whisper-base/whisper_base_decoder_static_non_kvcache_lm_fp16_layernorm_gelu.onnx',
+    size: '149 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 4], {}],
+      'attention_mask': ['int32', 1, [1, 4], {}],
+      'encoder_hidden_states': ['float16', 'random', [1, 1500, 512], {}]
+    }],
+    inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_base_encoder_gelu_fp16',
+    name: 'Whisper Base Encoder (Gelu)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'fp16/whisper-base/whisper_base_encoder_lm_fp16_layernorm_gelu.onnx',
+    size: '39.3 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_features': ['float16', 'random', [1, 80, 3000], {}]
+    }],
+    inputstip: '[1, 80, 3000]'
+  },
   {
     category: 'Fill-Mask',
     id: 'xlm_roberta_base',

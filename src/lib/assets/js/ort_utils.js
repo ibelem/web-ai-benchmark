@@ -101,6 +101,12 @@ const getFeeds = (session, modelName) => {
           feeds[v] = getTensor('float32', 1, [1, 8, 128, 64]);
         } else if (modelName.indexOf('vit_gpt2_image_captioning_decoder_') > -1) {
           feeds[v] = getTensor('float32', 1, [1, 12, 168, 64]);
+        } else if (modelName.toLowerCase() === 'whisper_base_decoder_static_gelu_fp16_merged') {
+          if (v.includes('decoder')) {
+            feeds[v] = getTensor('float16', 1, [1, 8, 127, 64]);
+          } else if (v.includes('encoder')) {
+            feeds[v] = getTensor('float16', 1, [1, 8, 1500, 64]);
+          }
         } else if (modelName.toLowerCase() === 'whisper_base_decoder_static_merged') {
           if (v.includes('decoder')) {
             feeds[v] = getTensor('float32', 1, [1, 8, 127, 64]);
@@ -375,13 +381,14 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
     numOfWarmups = 1;
   }
 
-  let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesNinety = null, inferenceTimesBest = null;
+  let firstInferenceTime = 0, warmupTimes = [], inferenceTimes = [], timeToFirstInference = null, inferenceTimesAverage = null, inferenceTimesMedian = null, inferenceTimesThroughput = null, inferenceTimesNinety = null, inferenceTimesBest = null;
 
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inferencing, please wait... `);
 
+  let throughputStart = performance.now();
   for (let i = 0; i < numOfWarmups + numOfRuns; i++) {
     let start;
-    start = performance.now()
+    start = performance.now();
     await sess.run(feeds);
     let inferenceTime = performance.now() - start;
 
@@ -394,6 +401,8 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
 
     // updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time [${i + 1}/${numOfRuns}]: ${inferenceTime} ms`);
   }
+
+  inferenceTimesThroughput = parseFloat(1000.00 / ((performance.now() - throughputStart) / (numOfWarmups + numOfRuns))).toFixed(2) + ' FPS';
 
   inferenceTimesAverage = average(inferenceTimes);
   inferenceTimesMedian = parseFloat(median(inferenceTimes).toFixed(2));
@@ -416,7 +425,9 @@ const main = async (_id, _model, _modelType, _dataType, _modelSize, _backend) =>
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (Best): ${inferenceTimesBest} ms`);
   await sleep(100);
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Inference Time (${numOfRuns} times): [${inferenceTimes}] ms`);
-  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
+  await sleep(100);
+  updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Throughput (${numOfRuns} times): ${inferenceTimesThroughput}`);
+  addResult(_model, _modelType, _dataType, _modelSize, _backend, 3, compilationTime, firstInferenceTime, timeToFirstInference, inferenceTimes, inferenceTimesMedian, inferenceTimesThroughput, inferenceTimesNinety, inferenceTimesAverage, inferenceTimesBest, null);
 
   await sess.release();
   updateInfo(`[${testQueueLength - testQueue.length + 1}/${testQueueLength}] Test ${_model} (${_modelType}/${_dataType}) with ${_backend} backend completed`);

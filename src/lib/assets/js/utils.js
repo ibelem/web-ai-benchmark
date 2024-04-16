@@ -168,7 +168,7 @@ export const compareObjects = async (obj1, obj2, tolerance) => {
   return true;
 }
 
-export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, timetofirstinference, inference, inferencemedian, inferenceninety, inferenceaverage, inferencebest, err) => {
+export const addResult = (model, modeltype, datatype, modelsize, backend, status, compilation, warmup, timetofirstinference, inference, inferencemedian, inferencethroughput, inferenceninety, inferenceaverage, inferencebest, err) => {
   resultsStore.update(items => {
     return items.map(item => {
       if (
@@ -187,6 +187,7 @@ export const addResult = (model, modeltype, datatype, modelsize, backend, status
             updatedItem[backend].inference = inference;
             updatedItem[backend].inferencebest = inferencebest;
             updatedItem[backend].inferencemedian = inferencemedian;
+            updatedItem[backend].inferencethroughput = inferencethroughput;
             updatedItem[backend].inferenceninety = inferenceninety;
             updatedItem[backend].inferenceaverage = inferenceaverage;
             updatedItem[backend].error = err;
@@ -817,6 +818,7 @@ export const run = async () => {
         timetofirstinference: null,
         inferencebest: null,
         inferencemedian: null,
+        inferencethroughput: null,
         inferenceninety: null,
         inferenceaverage: null,
         error: null

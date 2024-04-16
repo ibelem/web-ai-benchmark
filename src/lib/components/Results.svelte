@@ -275,6 +275,7 @@
 		tofirst: false,
 		average: true,
 		median: false,
+		throughput: false,
 		ninety: false,
 		best: false
 	};
@@ -287,6 +288,7 @@
 			resultOptions.tofirst === false &&
 			resultOptions.average === false &&
 			resultOptions.median === false &&
+			resultOptions.throughput === false &&
 			resultOptions.ninety === false &&
 			resultOptions.best === false
 		) {
@@ -353,6 +355,13 @@
 				tabindex="0"
 				on:keydown={() => {}}
 				on:click={() => toggleIndex('best')}>Best Inference</span
+			>
+			<span
+				class="throughput {resultOptions.throughput}"
+				role="button"
+				tabindex="0"
+				on:keydown={() => {}}
+				on:click={() => toggleIndex('throughput')}>Throughput</span
 			>
 		</div>
 		<div class="result">
@@ -545,7 +554,7 @@
 									.wasm_1.inferencemedian} ms; 90th Percentile Inference: {key.wasm_1
 									.inferenceninety} ms; Inference Time (Average): {key.wasm_1
 									.inferenceaverage} ms; Inference Time (Best): {key.wasm_1
-									.inferencebest} ms; Inference Times: [{key.wasm_1.inference
+									.inferencebest} ms; Throughput: {key.wasm_1.inferencethroughput}; Inference Times: [{key.wasm_1.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -564,7 +573,7 @@
 												key.wasm_1.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.wasm_1.inferencebest
-											} ms; Inference Times: [${key.wasm_1.inference
+											} ms; Throughput: ${key.wasm_1.inferencethroughput}; Inference Times: [${key.wasm_1.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -584,6 +593,7 @@
 									{#if resultOptions.ninety}<span class="ninety">{key.wasm_1.inferenceninety}</span
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.wasm_1.inferencebest}</span>{/if}
+									{#if resultOptions.throughput}<span class="throughput">{key.wasm_1.inferencethroughput}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -615,7 +625,7 @@
 									.wasm_4.inferencemedian} ms; 90th Percentile Inference: {key.wasm_4
 									.inferenceninety} ms; Inference Time (Average): {key.wasm_4
 									.inferenceaverage} ms; Inference Time (Best): {key.wasm_4
-									.inferencebest} ms; Inference Times: [{key.wasm_4.inference
+									.inferencebest} ms; Throughput: {key.wasm_4.inferencethroughput}; Inference Times: [{key.wasm_4.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -634,7 +644,7 @@
 												key.wasm_4.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.wasm_4.inferencebest
-											} ms; Inference Times: [${key.wasm_4.inference
+											} ms; Throughput: ${key.wasm_4.inferencethroughput}; Inference Times: [${key.wasm_4.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -654,6 +664,7 @@
 									{#if resultOptions.ninety}<span class="ninety">{key.wasm_4.inferenceninety}</span
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.wasm_4.inferencebest}</span>{/if}
+									{#if resultOptions.throughput}<span class="throughput">{key.wasm_4.inferencethroughput}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -685,7 +696,7 @@
 									.webnn_cpu_1.inferencemedian} ms; 90th Percentile Inference: {key.webnn_cpu_1
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_cpu_1
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_cpu_1
-									.inferencebest} ms; Inference Times: [{key.webnn_cpu_1.inference
+									.inferencebest} ms; Throughput: {key.webnn_cpu_1.inferencethroughput}; Inference Times: [{key.webnn_cpu_1.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -704,7 +715,7 @@
 												key.webnn_cpu_1.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.webnn_cpu_1.inferencebest
-											} ms; Inference Times: [${key.webnn_cpu_1.inference
+											} ms; Throughput: ${key.webnn_cpu_1.inferencethroughput}; Inference Times: [${key.webnn_cpu_1.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -727,6 +738,7 @@
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webnn_cpu_1.inferencebest}</span
 										>{/if}
+									{#if resultOptions.throughput}<span class="throughput">{key.webnn_cpu_1.inferencethroughput}</span>{/if}	
 								</div>
 							</div>
 						{/if}
@@ -758,7 +770,7 @@
 									.webnn_cpu_4.inferencemedian} ms; 90th Percentile Inference: {key.webnn_cpu_4
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_cpu_4
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_cpu_4
-									.inferencebest} ms; Inference Times: [{key.webnn_cpu_4.inference
+									.inferencebest} ms; Throughput: {key.webnn_cpu_4.inferencethroughput}; Inference Times: [{key.webnn_cpu_4.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -777,7 +789,7 @@
 												key.webnn_cpu_4.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.webnn_cpu_4.inferencebest
-											} ms;  Inference Times: [${key.webnn_cpu_4.inference
+											} ms; Throughput: ${key.webnn_cpu_4.inferencethroughput}; Inference Times: [${key.webnn_cpu_4.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -800,6 +812,7 @@
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webnn_cpu_4.inferencebest}</span
 										>{/if}
+										{#if resultOptions.throughput}<span class="throughput">{key.webnn_cpu_4.inferencethroughput}</span>{/if}	
 								</div>
 							</div>
 						{/if}
@@ -831,7 +844,7 @@
 									.webgl.inferencemedian} ms; 90th Percentile Inference: {key.webgl
 									.inferenceninety} ms; Inference Time (Average): {key.webgl
 									.inferenceaverage} ms; Inference Time (Best): {key.webgl
-									.inferencebest} ms; Inference Times: [{key.webgl.inference
+									.inferencebest} ms; Throughput: {key.webgl.inferencethroughput}; Inference Times: [{key.webgl.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -850,7 +863,7 @@
 												key.webgl.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.webgl.inferencebest
-											} ms; Inference Times: [${key.webgl.inference
+											} ms; Throughput: ${key.webgl.inferencethroughput}; Inference Times: [${key.webgl.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -870,6 +883,7 @@
 									{#if resultOptions.ninety}<span class="ninety">{key.webgl.inferenceninety}</span
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webgl.inferencebest}</span>{/if}
+									{#if resultOptions.throughput}<span class="throughput">{key.webgl.inferencethroughput}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -901,7 +915,7 @@
 									.webgpu.inferencemedian} ms; 90th Percentile Inference: {key.webgpu
 									.inferenceninety} ms; Inference Time (Average): {key.webgpu
 									.inferenceaverage} ms; Inference Time (Best): {key.webgpu
-									.inferencebest} ms; Inference Times: [{key.webgpu.inference
+									.inferencebest} ms; Throughput: {key.webgpu.inferencethroughput}; Inference Times: [{key.webgpu.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -920,7 +934,7 @@
 												key.webgpu.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.webgpu.inferencebest
-											} ms; Inference Times: [${key.webgpu.inference
+											} ms; Throughput: ${key.webgpu.inferencethroughput}; Inference Times: [${key.webgpu.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -940,6 +954,7 @@
 									{#if resultOptions.ninety}<span class="ninety">{key.webgpu.inferenceninety}</span
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webgpu.inferencebest}</span>{/if}
+									{#if resultOptions.throughput}<span class="throughput">{key.webgpu.inferencethroughput}</span>{/if}
 								</div>
 							</div>
 						{/if}
@@ -971,7 +986,7 @@
 									.webnn_gpu.inferencemedian} ms; 90th Percentile Inference: {key.webnn_gpu
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_gpu
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_gpu
-									.inferencebest} ms; Inference Times: [{key.webnn_gpu.inference
+									.inferencebest} ms; Throughput: {key.webnn_gpu.inferencethroughput}; Inference Times: [{key.webnn_gpu.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -990,7 +1005,7 @@
 												key.webnn_gpu.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.webnn_gpu.inferencebest
-											} ms; Inference Times: [${key.webnn_gpu.inference
+											} ms; Throughput: ${key.webnn_gpu.inferencethroughput}; Inference Times: [${key.webnn_gpu.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -1013,6 +1028,7 @@
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webnn_gpu.inferencebest}</span
 										>{/if}
+										{#if resultOptions.throughput}<span class="throughput">{key.webnn_gpu.inferencethroughput}</span>{/if}	
 								</div>
 							</div>
 						{/if}
@@ -1044,7 +1060,7 @@
 									.webnn_npu.inferencemedian} ms; 90th Percentile Inference: {key.webnn_npu
 									.inferenceninety} ms; Inference Time (Average): {key.webnn_npu
 									.inferenceaverage} ms; Inference Time (Best): {key.webnn_npu
-									.inferencebest} ms; Inference Times: [{key.webnn_npu.inference
+									.inferencebest} ms; Throughput: {key.webnn_npu.inferencethroughput}; Inference Times: [{key.webnn_npu.inference
 									.toString()
 									.replace(',', ', ')}] ms"
 							>
@@ -1063,7 +1079,7 @@
 												key.webnn_npu.inferenceaverage
 											} ms; Inference Time (Best): ${
 												key.webnn_npu.inferencebest
-											} ms; Inference Times: [${key.webnn_npu.inference
+											} ms; Throughput: ${key.webnn_npu.inferencethroughput}; Inference Times: [${key.webnn_npu.inference
 												.toString()
 												.replace(',', ', ')}] ms`
 										)}
@@ -1086,6 +1102,7 @@
 										>{/if}
 									{#if resultOptions.best}<span class="best">{key.webnn_npu.inferencebest}</span
 										>{/if}
+										{#if resultOptions.throughput}<span class="throughput">{key.webnn_npu.inferencethroughput}</span>{/if}	
 								</div>
 							</div>
 						{/if}

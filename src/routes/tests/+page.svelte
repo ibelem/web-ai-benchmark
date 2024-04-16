@@ -341,11 +341,16 @@
 	.efficientnet_lite_fp16,
 	.resnet50_v1_fp16,
 	.squeezenet_fp16 {
-		background-color: var(--fp16-005);
+		background-color: var(--green-005);
 	}
 
 	.mobilenet_v2_12_int8 {
 		background-color: var(--p-005);
+	}
+
+	.whisper_base_decoder_static_gelu_fp16_merged, 
+	.whisper_base_decoder_static_gelu_fp16, .whisper_base_encoder_gelu_fp16 {
+		background-color: var(--red-005);
 	}
 
 	.kvcache {
