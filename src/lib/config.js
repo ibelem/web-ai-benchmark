@@ -1154,20 +1154,6 @@ export let models = [
     }],
     inputstip: '[1, 128] [1, 128]'
   },
-  {
-    category: 'Object Segmentation',
-    id: 'mask_r_cnn_fp16',
-    name: 'Mask R-CNN',
-    description: 'Extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition',
-    note: '',
-    source: '',
-    model: 'fp16/mask-r-cnn-opset-12-fp16.onnx',
-    size: '85 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{ 'image': ['float16', 'random', [3, 224, 224], {"height": 224, "width": 224}] }],
-    inputstip: '[3, 224, 224]'
-  },
   // {
   //   category: 'Object Segmentation',
   //   id: 'mask_r_cnn_int8',
@@ -1474,7 +1460,7 @@ export let models = [
     description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image.',
     note: '',
     source: '',
-    model: 'sam-b-decoder.onnx',
+    model: 'segment-anything/sam-b-decoder.onnx',
     size: '15.7 MB',
     format: 'onnx',
     datatype: 'fp32',
@@ -1495,7 +1481,7 @@ export let models = [
     description: 'Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: '',
-    model: 'sam-b-encoder.onnx',
+    model: 'segment-anything/sam-b-encoder.onnx',
     size: '342 MB',
     format: 'onnx',
     datatype: 'fp32',
@@ -1691,23 +1677,6 @@ export let models = [
   },
   {
     category: 'Text To Image',
-    id: 'sd_turbo_vae_decoder_fp16',
-    name: 'SD Turbo VAE Decoder',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
-    note: '',
-    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
-    model: 'fp16/sd-turbo/vae_decoder/model.onnx',
-    size: '94.5 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{
-      'latent_sample': ['float32', 'random', [1, 4, 64, 64], { "batch": 1, "channels": 4, "height": 64, "width": 64 }]
-    
-    }],
-    inputstip: '[1, 4, 64, 64]'
-  },
-  {
-    category: 'Text To Image',
     id: 'sd_1_5_text_encoder_fp32',
     name: 'SD 1.5 text encoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -1742,8 +1711,8 @@ export let models = [
   },
   {
     category: 'Text To Image',
-    id: 'sd_1_5_vae_decoder_fp16',
-    name: 'SD 1.5 VAE Decoder',
+    id: 'sd_vae_decoder_fp16',
+    name: 'Stable Diffusion VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
     source: 'N/A',
@@ -1805,7 +1774,7 @@ export let models = [
     description: 'An AI model from Meta AI that can cut out any object in any image.',
     note: '',
     source: 'MSFT',
-    model: 'segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float32.onnx',
+    model: 'segment-anything/segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float32.onnx',
     size: '19.6 MB',
     format: 'onnx',
     datatype: 'fp32',
@@ -1825,7 +1794,7 @@ export let models = [
     description: 'An AI model from Meta AI that can cut out any object in any image.',
     note: '',
     source: 'MSFT',
-    model: 'fp16/segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float16.onnx',
+    model: 'fp16/segment-anything/segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float16.onnx',
     size: '9.8 MB',
     format: 'onnx',
     datatype: 'fp16',
@@ -1838,6 +1807,23 @@ export let models = [
     }],
     inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
   },
+  {
+    category: 'Semantic Segmentation',
+    id: 'segment_anything_encoder_fp16',
+    name: 'Segment Anything Encoder',
+    description: 'An AI model from Meta AI that can cut out any object in any image.',
+    note: '',
+    source: 'MSFT',
+    model: 'fp16/segment-anything/sam_vit_b_01ec64.encoder-fp16.onnx',
+    size: '171 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_image': ['float32', 'random', [1,3,1024,1024], {}]
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
+  },
+
   {
     category: 'Semantic Segmentation',
     id: 'selfie_segmentation_general',
@@ -1997,7 +1983,7 @@ export let models = [
     size: '16.9 MB',
     format: 'onnx',
     datatype: 'fp16',
-    inputs: [{ 'inputs': ['uint8', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+    inputs: [{ 'inputs': ['uint8', 1, [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
     inputstip: '[1, 224, 224, 3]'
   },
   // {
