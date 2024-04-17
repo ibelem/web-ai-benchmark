@@ -55,7 +55,6 @@
 		<ul id="menu">
 			<a href="{base}/"><li>Home</li></a>
 			<a href="{base}/tests"><li>Benchmark</li></a>
-			<a href="{base}/demo"><li>Demo</li></a>
 			<a href="{base}/fallback"><li>Fallback</li></a>
 			<a href="{base}/graph"><li>Graph</li></a>
 			<a href="{base}/conformance"><li>Conformance</li></a>

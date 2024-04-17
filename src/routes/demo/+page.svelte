@@ -2,7 +2,6 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Environment from '$lib/components/Environment.svelte';
-	import Clock from '$lib/components/svg/Clock.svelte';
 	import Onnx from '$lib/components/svg/Onnx.svelte';
 </script>
 
@@ -16,7 +15,7 @@
 	<div class="tq benchmark">
 		<div class="q tests" title="">
 			<div class="onnx"><Onnx /></div>
-			<a href="../stable-diffusion/index.html">Stable Diffusion · UNet 1.5</a>
+			<a href="../">Stable Diffusion · UNet 1.5</a>
 		</div>
 	</div>
 </div>
