@@ -1972,20 +1972,6 @@ export let models = [
   //   inputs: [{ 'image': ['float32', 'random', [1, 3, 1200, 1200], {}] }],
   //   inputstip: '[1, 3, 1200, 1200]'
   // },
-  {
-    category: 'Object Detection',
-    id: 'ssd_mobilenet_v1_fp16',
-    name: 'SSD MobileNet v1',
-    description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
-    note: '',
-    source: '',
-    model: 'fp16/ssd-mobilenet-v1-opset-12-fp16.onnx',
-    size: '16.9 MB',
-    format: 'onnx',
-    datatype: 'fp16',
-    inputs: [{ 'inputs': ['uint8', 1, [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
-    inputstip: '[1, 224, 224, 3]'
-  },
   // {
   //   category: 'Object Detection',
   //   id: 'ssd_mobilenet_v1_int8',
