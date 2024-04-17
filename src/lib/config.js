@@ -1643,6 +1643,25 @@ export let models = [
   },
   {
     category: 'Text To Image',
+    id: 'sd_turbo_text_encoder_fp16',
+    name: 'SD Turbo Text Encoder (no_layernorm)',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: '',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'fp16/sd-turbo/text_encoder/model.onnx',
+    size: '649 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 77], {
+        'batch_size': 1, 
+        'sequence_length': 77
+      }]
+    }],
+    inputstip: '[1, 77]'
+  },
+  {
+    category: 'Text To Image',
     id: 'sd_turbo_text_encoder_layernorm_fp16',
     name: 'SD Turbo Text Encoder (layernorm)',
     description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -1656,6 +1675,24 @@ export let models = [
       'input_ids': ['int32', 1, [1, 77], {}]
     }],
     inputstip: '[1, 77]'
+  },
+  {
+    category: 'Text To Image',
+    id: 'sd_turbo_unet_fp16',
+    name: 'SD Turbo UNet (no_layernorm)',
+    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    note: '',
+    source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
+    model: 'fp16/sd-turbo/unet/model.onnx',
+    size: '1.61 GB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'sample': ['float16', 1, [1, 4, 64, 64], {}],
+      'timestep': ['float16', 1, [1], {}],
+      'encoder_hidden_states': ['float16', 1, [1, 77, 1024], {}]
+    }],
+    inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
   },
   {
     category: 'Text To Image',
