@@ -1594,8 +1594,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_text_encoder_fp32',
-    name: 'SD Turbo text encoder',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo text encoder',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: 'Large model',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'sd-turbo/text_encoder/model.onnx',
@@ -1610,8 +1610,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_unet_fp32',
-    name: 'SD Turbo UNet',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo UNet',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: 'Large model',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'sd-turbo/unet/model.onnx',
@@ -1628,8 +1628,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_vae_decoder_fp32',
-    name: 'SD Turbo VAE Decoder',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo VAE Decoder',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'sd-turbo/vae_decoder/model.onnx',
@@ -1644,8 +1644,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_text_encoder_fp16',
-    name: 'SD Turbo Text Encoder (no_layernorm)',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo Text Encoder (no_layernorm)',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'fp16/sd-turbo/text_encoder/model.onnx',
@@ -1663,8 +1663,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_text_encoder_layernorm_fp16',
-    name: 'SD Turbo Text Encoder (layernorm)',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo Text Encoder (layernorm)',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'fp16/sd-turbo/text_encoder/model_layernorm.onnx',
@@ -1679,8 +1679,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_unet_fp16',
-    name: 'SD Turbo UNet (no_layernorm)',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo UNet (no_layernorm)',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'fp16/sd-turbo/unet/model.onnx',
@@ -1697,8 +1697,8 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_turbo_unet_layernorm_fp16',
-    name: 'SD Turbo UNet (layernorm)',
-    description: 'Stable Diffusion Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
+    name: 'SD-Turbo UNet (layernorm)',
+    description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
     note: '',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'fp16/sd-turbo/unet/model_layernorm.onnx',
@@ -1749,7 +1749,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_vae_decoder_fp16',
-    name: 'Stable Diffusion VAE Decoder',
+    name: 'SD VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
     source: 'N/A',
@@ -1806,43 +1806,45 @@ export let models = [
   },
   {
     category: 'Semantic Segmentation',
-    id: 'segment_anything',
-    name: 'Segment Anything',
+    id: 'segment_anything_decoder',
+    name: 'Segment Anything Decoder',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
     note: '',
     source: 'MSFT',
-    model: 'segment-anything/segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float32.onnx',
-    size: '19.6 MB',
+    model: 'segment-anything/sam_vit_b_01ec64.decoder.onnx',
+    size: '15.7 MB',
     format: 'onnx',
     datatype: 'fp32',
     inputs: [{
       'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
-      'point_coords': ['float32', 'random', [1, 2, 2], {}],
-      'point_labels': ['float32', 'random', [1, 2], {}],
+      'point_coords': ['float32', 'random', [1, 2, 2], { "num_points": 2 }],
+      'point_labels': ['float32', 'random', [1, 2], { "num_points": 2 }],
       'mask_input': ['float32', 'random', [1, 1, 256, 256], {}],
-      'has_mask_input': ['float32', 'random', [1], {}]
+      'has_mask_input': ['float32', 'random', [1], {}],
+      'orig_im_size': ['float32', [512, 512], [2], {}]
     }],
-    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
+    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1] [2]'
   },
   {
     category: 'Semantic Segmentation',
-    id: 'segment_anything_fp16',
-    name: 'Segment Anything',
+    id: 'segment_anything_decoder_fp16',
+    name: 'Segment Anything Decoder',
     description: 'An AI model from Meta AI that can cut out any object in any image.',
     note: '',
     source: 'MSFT',
-    model: 'fp16/segment-anything/segment-anything-vit-h-static-shapes-origin-im-size-initializer-optimized-float16.onnx',
-    size: '9.8 MB',
+    model: 'fp16/segment-anything/sam_vit_b_01ec64.decoder-fp16.onnx',
+    size: '8.04 MB',
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'image_embeddings': ['float16', 'random', [1, 256, 64, 64], {}],
-      'point_coords': ['float16', 'random', [1, 2, 2], {}],
-      'point_labels': ['float16', 'random', [1, 2], {}],
-      'mask_input': ['float16', 'random', [1, 1, 256, 256], {}],
-      'has_mask_input': ['float16', 'random', [1], {}]
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], {}],
+      'point_coords': ['float32', 'random', [1, 2, 2], { "num_points": 2 }],
+      'point_labels': ['float32', 'random', [1, 2], { "num_points": 2 }],
+      'mask_input': ['float32', 'random', [1, 1, 256, 256], {}],
+      'has_mask_input': ['float32', 'random', [1], {}],
+      'orig_im_size': ['float32', [512, 512], [2], {}]
     }],
-    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1]'
+    inputstip: '[1, 256, 64, 64] [1, 2, 2] [1, 2] [1, 1, 256, 256] [1] [2]'
   },
   {
     category: 'Semantic Segmentation',
@@ -1856,7 +1858,7 @@ export let models = [
     format: 'onnx',
     datatype: 'fp16',
     inputs: [{
-      'input_image': ['float32', 'random', [1,3,1024,1024], {}]
+      'input_image': ['float32', 'random', [1, 3, 1024, 1024], {}]
     }],
     inputstip: '[1, 3, 1024, 1024]'
   },
