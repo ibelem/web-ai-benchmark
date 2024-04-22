@@ -71,7 +71,7 @@ const generateEsrganConfigs = () => {
     note: tile == 1024 ? 'Out-of-memory test model, run this model tests individually rather than together with other models. Slow on CPU' : 'Slow on CPU',
     source: `RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
     model: fp == 16 ? `fp16/realesrgan/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx` : `realesrgan/RealESRGAN_x4plus_fp${fp}_t${tile}_torchscript.onnx`,
-    size: fp == 16 ? "36 MB" : '65 MB',
+    size: fp == 16 ? "35.2 MB" : '65 MB',
     format: 'onnx',
     datatype: `fp${fp}`,
     inputs: [{ [`in_image_float${fp}_rgb01`]: [`float${fp}`, 'random', [1, 3, tile, tile], {}] }],
@@ -1749,7 +1749,7 @@ export let models = [
   {
     category: 'Text To Image',
     id: 'sd_vae_decoder_fp16',
-    name: 'SD VAE Decoder',
+    name: 'SD (1.5 + Turbo) VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
     note: '',
     source: 'N/A',
@@ -1996,6 +1996,20 @@ export let models = [
     datatype: 'fp16',
     inputs: [{ 'image': ['float16', 'random', [1, 3, 1200, 1200], {}] }],
     inputstip: '[1, 3, 1200, 1200]'
+  },
+  {
+    category: 'Object Detection',
+    id: 'ssd_mobilenet_v1_fp16',
+    name: 'SSD MobileNet v1',
+    description: 'Single-Shot multibox Detection (SSD) network intended to perform object detection',
+    note: '',
+    source: 'https://github.com/onnx/models/tree/main/validated/vision/object_detection_segmentation/ssd-mobilenetv1',
+    model: 'fp16/ssd-mobilenet-v1-opset-12-fp16.onnx',
+    size: '16.9 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{ 'inputs': ['uint8', 1, [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
+    inputstip: '[1, 224, 224, 3]'
   },
   // {
   //   category: 'Object Detection',
