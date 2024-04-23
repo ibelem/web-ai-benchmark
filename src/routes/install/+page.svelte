@@ -14,7 +14,7 @@
 	<div id='install-guides' class="">
 		WebNN requires a compatible browser to run, and Windows* 11 v21H2 (DML 1.6.0) or higher.
 		<ol>
-			<li>Download the latest <a href="https://www.microsoft.com/edge/download/insider" title="Download Microsoft Edge Canary">Microsoft Edge Canary</a> or <a href="https://google.com/chrome/canary" title="Download Google Chrome Canary">Google Chrome Canary</a> browser</li>
+			<li>Download the latest <a href="https://google.com/chrome/canary" title="Download Google Chrome Canary">Google Chrome Canary</a> or <a href="https://www.microsoft.com/edge/download/insider" title="Download Microsoft Edge Canary">Microsoft Edge Canary</a> browser</li>
 			<li>To enable WebNN, in your browser address bar, enter <code>chrome://flags</code>, and then press <code>Enter</code>. An Experiments page opens</li>
 			<li>In the Search flags box, enter <code>webnn</code>. Enables WebNN API appears</li>
 			<li>In the drop-down menu, select <code>Enabled</code></li>
