@@ -348,11 +348,6 @@
 		background-color: var(--p-005);
 	}
 
-	.whisper_base_decoder_static_gelu_fp16_merged, 
-	.whisper_base_decoder_static_gelu_fp16, .whisper_base_encoder_gelu_fp16 {
-		background-color: var(--red-005);
-	}
-
 	.kvcache {
 		display: inline-block;
 		margin-left: 8px;

@@ -2457,6 +2457,24 @@ export let models = [
   // },
   {
     category: 'Speech Recognition',
+    id: 'whisper_base_decoder_static_fp16_merged',
+    name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'fp16/whisper-base/whisper_base_decoder_static_kvcache_128_lm_fp16_layernorm.onnx',
+    size: '143 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 1], {}],
+      'attention_mask': ['int64', 1n, [1, 128], {}],
+      'position_ids': ['int32', 1, [1], {}]
+    }],
+    inputstip: '[1, 1] [1, 128] [1]'
+  },
+  {
+    category: 'Speech Recognition',
     id: 'whisper_base_decoder_static_gelu_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2475,6 +2493,24 @@ export let models = [
   },
   {
     category: 'Speech Recognition',
+    id: 'whisper_base_decoder_static_fp16',
+    name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'fp16/whisper-base/whisper_base_decoder_static_non_kvcache_lm_fp16_layernorm.onnx',
+    size: '149 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_ids': ['int32', 1, [1, 4], {}],
+      'attention_mask': ['int32', 1, [1, 4], {}],
+      'encoder_hidden_states': ['float16', 'random', [1, 1500, 512], {}]
+    }],
+    inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
+  },
+  {
+    category: 'Speech Recognition',
     id: 'whisper_base_decoder_static_gelu_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2490,6 +2526,22 @@ export let models = [
       'encoder_hidden_states': ['float16', 'random', [1, 1500, 512], {}]
     }],
     inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
+  },
+  {
+    category: 'Speech Recognition',
+    id: 'whisper_base_encoder_fp16',
+    name: 'Whisper Base Encoder (LayerNorm)',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'customized',
+    model: 'fp16/whisper-base/whisper_base_encoder_lm_fp16_layernorm.onnx',
+    size: '39.3 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'input_features': ['float16', 'random', [1, 80, 3000], {}]
+    }],
+    inputstip: '[1, 80, 3000]'
   },
   {
     category: 'Speech Recognition',
