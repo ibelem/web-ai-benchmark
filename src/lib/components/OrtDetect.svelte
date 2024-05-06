@@ -44,10 +44,11 @@
 			ortStable = itemid[0].replace('onnxruntime-web@', '');
 
 			selectElement = doc.querySelector('select.versions.select-css');
-			const options = Array.from(selectElement.querySelectorAll('option')).map(
+			let options = Array.from(selectElement.querySelectorAll('option')).map(
 				(option) => option.value
 			);
 
+			options = options.filter(option => !option.includes("esmtest"));
 			ortDev = options[0];
 			ortDev = ortDev.replace('onnxruntime-web@', '');
 
