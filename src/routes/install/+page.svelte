@@ -8,7 +8,7 @@
 
 <div class="page">
 	<div class="tqtitle subtitle">
-		<div class="title tq">WebNN Installation Guides for the AI PC</div>
+		<div class="title tq">WebNN Installation Guide for the AI PC</div>
 	</div>
 
 	<div id='install-guides' class="">
