@@ -45,16 +45,15 @@
 		><span class="status {webnn}"
 		><a
 			href="../install"
-			title="WebNN Installation Guides for the AI PC"
-			>Install Guides</a
-		></span><span class="status {webnn}"
+			title="WebNN Installation Guide for the AI PC"
+			>Install Guide</a
+		></span>
+		<!-- <span class="status {webnn}"
 		><a
 			href="https://microsoft.github.io/onnxruntime-web-demo/"
 			title="ONNX Runtime Web - WebNN Demos"
 			>Demos</a
-		></span>
-
-		
+		></span> -->
 	</div>
 </footer>
 
