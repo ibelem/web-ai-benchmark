@@ -1727,6 +1727,23 @@ export let models = [
     inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
   },
   {
+    category: 'Image Identification',
+    id: 'sd_safety_checker_fp16',
+    name: 'SD Safety Checker',
+    description: 'Can be used for identifying not safe for work (NSFW) image. Should not be used to intentionally create hostile or alienating environments for people.',
+    note: 'Large model',
+    source: 'https://github.com/microsoft/Olive/tree/main/examples/directml/stable_diffusion#test-inference',
+    model: 'fp16/sd-safety-checker.onnx',
+    size: '580 MB',
+    format: 'onnx',
+    datatype: 'fp16',
+    inputs: [{
+      'clip_input': ['float16', 1, [1, 3, 224, 224], {"batch": 1, "channels": 3, "height": 224, "width": 224}],
+      'images': ['float16', 1, [1, 224, 224, 3], {"batch": 1, "height": 224, "width": 224, "channels": 3}]
+    }],
+    inputstip: '[1, 3, 224, 224] [1, 224, 224, 3]'
+  },
+  {
     category: 'Text To Image',
     id: 'sd_1_5_text_encoder_fp16',
     name: 'SD 1.5 text encoder',
