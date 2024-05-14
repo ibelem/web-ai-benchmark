@@ -1,1 +1,5 @@
-# Web AI Benchmark
+# Web AI Test
+
+## License
+
+AGPL
