@@ -22,7 +22,7 @@ export const corsSites = [
 
 export const ortDists = {
   webgpu: {
-    version: 'internal.0511.2024',
+    version: 'internal.0604.2024',
     url: 'https://ibelem.github.io/onnxruntime-web-dist/webgpu/ort.webgpu.min.js'
   },
   webnn_webglfix_wasm: {
@@ -33,7 +33,6 @@ export const ortDists = {
 
 export const modelHosts = {
   hf: 'https://huggingface.co/webml/models/resolve/main/',
-  hfmirror: 'https://hf-mirror.com/webml/models/resolve/main/',
   cf: 'https://d3i5xkfad89fac.cloudfront.net/benchmark/',
   local: 'models/'
 }

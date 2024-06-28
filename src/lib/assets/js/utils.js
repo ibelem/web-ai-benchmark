@@ -424,22 +424,6 @@ export const setModelDownloadUrl = async () => {
       } else {
         updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
       }
-
-      // modelDownloadUrlStore.update(() => 2);
-      // updateInfo(`Failed to fetch AI models from huggingface.co`);
-      // let [err2, response2] = await to(fetch(hfmirror));
-      // if (err2) {
-      //   modelDownloadUrlStore.update(() => 3);
-      //   updateInfo(`Failed to fetch AI models from mirror of huggingface.co`);
-      //   let [err3, response3] = await to(fetch(cf));
-      //   if (err3) {
-      //     updateInfo(`Failed to fetch AI models from Amazon Web Services (AWS)`);
-      //   } else {
-      //     updateInfo(`AI models will be fetched from Amazon Web Services (AWS)`);
-      //   }
-      // } else {
-      //   updateInfo(`AI models will be fetched from mirror of huggingface.co`);
-      // }
     } else {
       modelDownloadUrlStore.update(() => 1);
       updateInfo(`AI models will be fetched from huggingface.co`);
