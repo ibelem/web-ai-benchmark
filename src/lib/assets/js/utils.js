@@ -365,7 +365,7 @@ export const getHfUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if(models[i].hf && models[i].hf.model){
-        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/onnx/model${models[i].hf.datatype}.onnx`;
+        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/onnx/${models[i].hf.file}`;
         return url;
       } else {
         return modelHosts.hf + models[i].model;
@@ -388,7 +388,7 @@ export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
       if(models[i].hf && models[i].hf.model){
-        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/onnx/model${models[i].hf.datatype}.onnx`;
+        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/onnx/${models[i].hf.file}`;
         return url;
       } else {
         return location.origin + '/' + modelHosts.local + models[i].model;
