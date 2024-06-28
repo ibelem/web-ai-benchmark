@@ -496,7 +496,6 @@ const distilbertBaseUncased = () => {
   }))
 }
 
-
 const distilbertBaseCasedDistilledSquad = () => {
   const configs = [
     ['fp32', 'model.onnx', '248 MB'],
@@ -730,6 +729,129 @@ const esrgan = () => {
   }))
 }
 
+const flanT5SmallDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '221 MB'],
+    // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    ['int8', 'decoder_model_quantized.onnx', '56.2 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `flan_t5_small_decoder_${dt}`,
+    name: 'FLAN-T5 Small Decoder',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small',
+    hf: {
+      model: 'xenova/flan-t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  }))
+}
+
+const flanT5SmallDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '209 MB'],
+    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `flan_t5_small_decoder_with_past_${dt}`,
+    name: 'FLAN-T5 Small Decoder w/i Past',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small',
+    hf: {
+      model: 'xenova/flan-t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+  }))
+}
+
+const flanT5SmallDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '222 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', ' 111 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '56.5 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `flan_t5_small_decoder_merged_${dt}`,
+    name: 'FLAN-T5 Small Decoder KV-Cache',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small',
+    hf: {
+      model: 'xenova/flan-t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128
+      }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  }))
+}
+
+const flanT5SmallEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '134 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', ' 67.5 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '34.1 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `flan_t5_small_encoder_${dt}`,
+    name: 'FLAN-T5 Small Encoder',
+    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/flan-t5-small',
+    hf: {
+      model: 'xenova/flan-t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
 export let models = [
   {
     category: 'Model Access Check',
@@ -901,124 +1023,22 @@ export let models = [
   //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {"batch": 1, "height": 224, "width": 224}] }],
   //   inputstip: '[1, 3, 224, 224]'
   // },
-  {
-    category: 'Text2Text Generation',
-    id: 'flan_t5_small_decoder',
-    name: 'FLAN-T5 Small Decoder',
-    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/flan-t5-small',
-    model: 'transformer.js/flan-t5-small/decoder_model.onnx',
-    size: '221 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  },
-  {
-    category: 'Text2Text Generation',
-    id: 'flan_t5_small_decoder_with_past',
-    name: 'FLAN-T5 Small Decoder w/i Past',
-    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/flan-t5-small',
-    model: 'transformer.js/flan-t5-small/decoder_with_past_model.onnx',
-    size: '209 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
-  },
-  {
-    category: 'Text2Text Generation',
-    id: 'flan_t5_small_decoder_merged',
-    name: 'FLAN-T5 Small Decoder KV-Cache',
-    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/flan-t5-small',
-    model: 'transformer.js/flan-t5-small/decoder_model_merged.onnx',
-    size: '222 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_decoder_sequence_length": 128,
-        "encoder_sequence_length_out": 128
-      }]
-    }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  },
-  // {
-  //   category: 'Text2Text Generation',
-  //   id: 'flan_t5_small_decoder_int8',
-  //   name: 'FLAN-T5 Small Decoder',
-  //   description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/flan-t5-small',
-  //   model: 'transformer.js/flan-t5-small/decoder_model_quantized.onnx',
-  //   size: '56.2 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-  //     'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-  //     'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-  //   }],
-  //   inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  // },
-  {
-    category: 'Text2Text Generation',
-    id: 'flan_t5_small_encoder',
-    name: 'FLAN-T5 Small Encoder',
-    description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/flan-t5-small',
-    model: 'transformer.js/flan-t5-small/encoder_model.onnx',
-    size: '134 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 128]'
-  },
-  // {
-  //   category: 'Text2Text Generation',
-  //   id: 'flan_t5_small_encoder_int8',
-  //   name: 'FLAN-T5 Small Encoder',
-  //   description: 'If you already know T5, FLAN-T5 is just better at everything. Flan-PaLM 540B achieves state-of-the-art performance on several benchmarks, such as 75.2% on five-shot MMLU.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/flan-t5-small',
-  //   model: 'transformer.js/flan-t5-small/encoder_model.onnx',
-  //   size: '34.1 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
-  //   }],
-  //   inputstip: '[1, 128] [1, 128]'
-  // },
+  ...flanT5SmallDecoder(),
+  ...flanT5SmallDecoderWithPast(),
+  ...flanT5SmallDecoderMerged(),
+  ...flanT5SmallEncoder(), 
   {
     category: 'Text Generation',
-    id: 'gpt2_decoder',
+    id: 'gpt2_decoder_fp32',
     name: 'GPT-2 Decoder',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/gpt2',
-    model: 'gpt2-decoder.onnx',
+    source: 'https://huggingface.co/openai-community/gpt2',
+    hf: {
+      model: 'openai-community/gpt2',
+      file: `decoder_model.onnx`,
+    },
+    model: '',
     size: '623 MB',
     format: 'onnx',
     datatype: 'fp32',
@@ -1030,12 +1050,16 @@ export let models = [
   },
   {
     category: 'Text Generation',
-    id: 'gpt2_decoder_with_past',
+    id: 'gpt2_decoder_with_past_fp32',
     name: 'GPT-2 Decoder w/i Past',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/gpt2',
-    model: 'gpt2-decoder_with_past.onnx',
+    source: 'https://huggingface.co/openai-community/gpt2',
+    hf: {
+      model: 'openai-community/gpt2',
+      file: `decoder_with_past_model.onnx`,
+    },
+    model: '',
     size: '623 MB',
     format: 'onnx',
     datatype: 'fp32',
@@ -1047,12 +1071,16 @@ export let models = [
   },
   {
     category: 'Text Generation',
-    id: 'gpt2_decoder_merged',
+    id: 'gpt2_decoder_merged_fp32',
     name: 'GPT-2 Decoder KV-Cache',
     description: 'A transformers model pretrained on a very large corpus of English data in a self-supervised fashion.',
     note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/gpt2',
-    model: 'gpt2-decoder_merged.onnx',
+    source: 'https://huggingface.co/openai-community/gpt2',
+    hf: {
+      model: 'openai-community/gpt2',
+      file: `decoder_model_merged.onnx`,
+    },
+    model: '',
     size: '624 MB',
     format: 'onnx',
     datatype: 'fp32',
