@@ -83,7 +83,7 @@ const getFeeds = (session, modelName) => {
     }
   }
 
-  if (modelName.endsWith('_merged') || modelName.endsWith('_with_past')) {
+  if (modelName.indexOf('_merged') > -1 || modelName.indexOf('_with_past')> -1) {
     for (var k in inputNames) {
       const v = inputNames[k];
       if (v.startsWith('past_key_values.')) {

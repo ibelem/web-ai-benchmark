@@ -201,7 +201,7 @@ const bertBaseMultilingualUncasedSentiment = () => {
   const configs = [
     ['fp32', 'model.onnx', '638 MB'],
     ['fp16', 'model_fp16.onnx', '319 MB'],
-    ['int8', 'model_quantized.onnx', '160.78 MB'],
+    // ['int8', 'model_quantized.onnx', '160.78 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Classification',
@@ -224,6 +224,424 @@ const bertBaseMultilingualUncasedSentiment = () => {
       'token_type_ids': ['int64', 1n, [1, 63], { "batch_size": 1, "sequence_length": 63 }],
     }],
     inputstip: '[1, 63] [1, 63] [1, 63]'
+  }))
+}
+
+const clipVitBasePatch16 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '571 MB'],
+    ['fp16', 'model_fp16.onnx', '286 MB'],
+    // ['int8', 'model_quantized.onnx', '144 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Image Classification',
+    id: `clip_vit_base_patch16_${dt}`,
+    name: 'CLIP ViT Base',
+    description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/clip-vit-base-patch16',
+    hf: {
+      model: 'xenova/clip-vit-base-patch16',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 49407n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }],
+      'pixel_values': ['float32', 99, [1, 3, 224, 224], { "image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'attention_mask': ['int64', 1n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }]
+    }],
+    inputstip: '[1, 77] [1, 3, 224, 224] [1, 77]'
+  }))
+}
+
+const codeGenMono350M = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '1.33 GB'],
+    ['fp16', 'decoder_model_fp16.onnx', '690 MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '350 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    id: `codegen_350m_mono_${dt}`,
+    name: 'CodeGen Mono 350M',
+    description: 'A family of autoregressive language models for program synthesis.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/codegen-350M-mono',
+    hf: {
+      model: 'xenova/codegen-350m-mono',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
+      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
+    }],
+    inputstip: '[1, 8] [1, 8]'
+  }))
+}
+
+const detrResnet50 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '159 MB'],
+    ['fp16', 'model_fp16.onnx', '79.9 MB'],
+    // ['int8', 'model_quantized.onnx', '41.1 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    id: `detr_resnet_50_${dt}`,
+    name: 'DETR w/i ResNet-50',
+    description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/detr-resnet-50',
+    hf: {
+      model: 'xenova/detr-resnet-50',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
+      'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 3, 224, 224] [1, 64, 64]'
+  }))
+}
+
+const dinoVitb16 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '327 MB'],
+    ['fp16', 'model_fp16.onnx', '163 MB'],
+    ['int8', 'model_quantized.onnx', '83.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Feature Extraction',
+    id: `dino_vitb16_${dt}`,
+    name: 'DINO ViT',
+    description: 'Vision Transformer (ViT) model trained using the DINO method.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/dino-vitb16',
+    hf: {
+      model: 'xenova/dino-vitb16',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
+const distilbartCnn66Decoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '585 MB'],
+    // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    ['int8', 'decoder_model_quantized.onnx', '147 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Summarization',
+    id: `distilbart_cnn_6_6_decoder_${dt}`,
+    name: 'Distilbart CNN 6-6 Decoder',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
+    hf: {
+      model: 'xenova/distilbart-cnn-6-6',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
+  }))
+}
+
+const distilbartCnn66DecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '537 MB'],
+    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '135 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Summarization',
+    id: `distilbart_cnn_6_6_decoder_with_past_${dt}`,
+    name: 'Distilbart CNN 6-6 Decoder w/i Past',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
+    hf: {
+      model: 'xenova/distilbart-cnn-6-6',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'input_ids': ['int64', 99n, [1, 1], {
+        "batch_size": 1,
+        "past_decoder_sequence_length": 168,
+        "encoder_sequence_length_out": 168,
+      }]
+    }],
+    inputstip: '[1, 168] [1, 1]'
+  }))
+}
+
+const distilbartCnn66DecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '585 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '293 MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '193 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Summarization',
+    id: `distilbart_cnn_6_6_decoder_merged_${dt}`,
+    name: 'Distilbart CNN 6-6 Decoder KV-Cache',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
+    hf: {
+      model: 'xenova/distilbart-cnn-6-6',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 168,
+        "encoder_sequence_length_out": 168,
+      }],
+    }],
+    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
+  }))
+}
+
+const distilbartCnn66Encoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '488 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', '244 MB'],
+    ['int8', 'encoder_model_quantized.onnx', '122.85 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Summarization',
+    id: `distilbart_cnn_6_6_encoder_${dt}`,
+    name: 'Distilbart CNN 6-6 Encoder',
+    description: 'A text summarization model built upon a Transformer model.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
+    hf: {
+      model: 'xenova/distilbart-cnn-6-6',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168]'
+  }))
+}
+
+const distilbertBaseUncased = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '255 MB'],
+    ['fp16', 'model_fp16.onnx', '127 MB'],
+    ['int8', 'model_quantized.onnx', '64.5 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Fill-Mask',
+    id: `distilbert_base_uncased_${dt}`,
+    name: 'DistilBERT Base Uncased',
+    description: 'DistilBERT is a transformers model, smaller and faster than BERT, which was pretrained on the same corpus in a self-supervised fashion, using the BERT base model as a teacher.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-uncased',
+    hf: {
+      model: 'xenova/distilbert-base-uncased',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  }))
+}
+
+
+const distilbertBaseCasedDistilledSquad = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '248 MB'],
+    ['fp16', 'model_fp16.onnx', '124 MB'],
+    ['int8', 'model_quantized.onnx', '62.7 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Question Answering',
+    id: `distilbert_base_cased_distilled_squad_${dt}`,
+    name: 'DistilBERT Base Cased Distilled Squad',
+    description: 'A small, fast, cheap and light Transformer model trained by distilling BERT base.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-cased-distilled-squad',
+    hf: {
+      model: 'xenova/distilbert-base-cased-distilled-squad',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 262], { "batch_size": 1, "sequence_length": 262 }],
+      'attention_mask': ['int64', 1n, [1, 262], { "batch_size": 1, "sequence_length": 262 }]
+    }],
+    inputstip: '[1, 262] [1, 262]'
+  }))
+}
+
+const distilbertBaseUncasedMnli = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '255 MB'],
+    ['fp16', 'model_fp16.onnx', '127 MB'],
+    ['int8', 'model_quantized.onnx', '64.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Zero-Shot Classification',
+    id: `distilbert_base_uncased_mnli_${dt}`,
+    name: 'DistilBERT Base Uncased Mnli',
+    description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilbert-base-uncased-mnli',
+    hf: {
+      model: 'xenova/distilbert-base-uncased-mnli',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  }))
+}
+
+const distilgpt2Decoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '313 MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '157 MB'],
+    ['int8', 'decoder_model_quantized.onnx', '79.6 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    id: `distilgpt2_decoder_${dt}`,
+    name: 'DistilGPT2 Decoder',
+    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilgpt2',
+    hf: {
+      model: 'xenova/distilgpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+    }],
+    inputstip: '[1, 16] [1, 16]'
+  }))
+}
+
+const distilgpt2DecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '313 MB'],
+    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    ['int8', 'decoder_with_past_model_quantized.onnx', '79.6 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    id: `distilgpt2_decoder_with_past_${dt}`,
+    name: 'DistilGPT2 Decoder w/i Past',
+    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilgpt2',
+    hf: {
+      model: 'xenova/distilgpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "past_sequence_length + 1": 16 }]
+    }],
+    inputstip: '[1, 16] [1, 16]'
+  }))
+}
+
+const distilgpt2DecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '314 MB'],
+    // ['fp16', 'decoder_merged_model_fp16.onnx', ' MB'],
+    ['int8', 'decoder_model_merged_quantized.onnx', '80.9 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text Generation',
+    id: `distilgpt2_decoder_merged_${dt}`,
+    name: 'DistilGPT2 Decoder KV-Cache',
+    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distilgpt2',
+    hf: {
+      model: 'xenova/distilgpt2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "attention_mask_sequence_length": 16 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_sequence_length": 16
+      }]
+    }],
+    inputstip: '[1, 16] [1, 16]'
   }))
 }
 
@@ -272,76 +690,8 @@ export let models = [
   ...bertBaseUncased(),
   ...bertBaseMultilingualCasedNerHrl(),
   ...bertBaseMultilingualUncasedSentiment(),
-  {
-    category: 'Zero-Shot Image Classification',
-    id: 'clip_vit_base_patch16',
-    name: 'CLIP ViT Base',
-    description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/clip-vit-base-patch16',
-    model: 'transformer.js/clip-vit-base-patch16/model.onnx',
-    size: '571 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 49407n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }],
-      'pixel_values': ['float32', 99, [1, 3, 224, 224], { "image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
-      'attention_mask': ['int64', 1n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }]
-    }],
-    inputstip: '[1, 77] [1, 3, 224, 224] [1, 77]'
-  },
-  // {
-  //   category: 'Zero-Shot Image Classification',
-  //   id: 'clip_vit_base_patch16_int8',
-  //   name: 'CLIP ViT Base',
-  //   description: 'A Contrastive Language-Image Pre-Training (CLIP) model developed by researchers at OpenAI to learn about what contributes to robustness in computer vision tasks.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/clip-vit-base-patch16',
-  //   model: 'transformer.js/clip-vit-base-patch16/model_quantized.onnx',
-  //   size: '144 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 49407n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }],
-  //     'pixel_values': ['float32', 99, [1, 3, 224, 224], { "image_batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
-  //     'attention_mask': ['int64', 1n, [1, 77], { "text_batch_size": 1, "sequence_length": 77 }]
-  //   }],
-  //   inputstip: '[1, 77] [1, 3, 224, 224] [1, 77]'
-  // },
-  {
-    category: 'Text Generation',
-    id: 'codegen_350m_mono',
-    name: 'CodeGen Mono 350M',
-    description: 'A family of autoregressive language models for program synthesis.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/codegen-350M-mono',
-    model: 'transformer.js/codegen-350m-mono/decoder_model.onnx',
-    size: '1.33 GB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
-      'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
-    }],
-    inputstip: '[1, 8] [1, 8]'
-  },
-  // {
-  //   category: 'Text Generation',
-  //   id: 'codegen_350m_mono_int8',
-  //   name: 'CodeGen Mono 350M',
-  //   description: 'A family of autoregressive language models for program synthesis.',
-  //   note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-  //   source: 'https://huggingface.co/Xenova/codegen-350M-mono',
-  //   model: 'transformer.js/codegen-350m-mono/decoder_model_quantized.onnx',
-  //   size: '350 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 8], { "batch_size": 1, "sequence_length": 8 }],
-  //     'attention_mask': ['int64', 1n, [1, 8], { "batch_size": 1, "sequence_length": 8 }]
-  //   }],
-  //   inputstip: '[1, 8] [1, 8]'
-  // },
+  ...clipVitBasePatch16(),
+  ...codeGenMono350M(),
   {
     category: 'Semantic Segmentation',
     id: 'deeplab_v3',
@@ -370,354 +720,18 @@ export let models = [
     inputs: [{ 'data_0': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
-  {
-    category: 'Object Detection',
-    id: 'detr_resnet_50',
-    name: 'DETR w/i ResNet-50',
-    description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/detr-resnet-50',
-    model: 'transformer.js/detr-resnet-50/model.onnx',
-    size: '41.11 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
-      'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }]
-    }],
-    inputstip: '[1, 3, 224, 224] [1, 64, 64]'
-  },
-  // {
-  //   category: 'Object Detection',
-  //   id: 'detr_resnet_50_int8',
-  //   name: 'DETR w/i ResNet-50',
-  //   description: 'DEtection TRansformer (DETR) model with ResNet-50 backbone trained end-to-end on COCO 2017 object detection (118k annotated images). The DETR model is an encoder-decoder transformer with a convolutional backbone.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/detr-resnet-50',
-  //   model: 'transformer.js/detr-resnet-50/model_quantized.onnx',
-  //   size: '41.11 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }],
-  //     'pixel_mask': ['int64', 1n, [1, 64, 64], { "batch_size": 1 }]
-  //   }],
-  //   inputstip: '[1, 3, 224, 224] [1, 64, 64]'
-  // },
-  {
-    category: 'Feature Extraction',
-    id: 'dino_vitb16',
-    name: 'DINO ViT',
-    description: 'Vision Transformer (ViT) model trained using the DINO method.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/dino-vitb16',
-    model: 'transformer.js/dino-vitb16/model.onnx',
-    size: '327 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] }],
-    inputstip: '[1, 3, 224, 224]'
-  },
-  // {
-  //   category: 'Feature Extraction',
-  //   id: 'dino_vitb16_int8',
-  //   name: 'DINO ViT',
-  //   description: 'Vision Transformer (ViT) model trained using the DINO method.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/dino-vitb16',
-  //   model: 'transformer.js/dino-vitb16/model_quantized.onnx',
-  //   size: '83.4 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }] }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
-  {
-    category: 'Text Summarization',
-    id: 'distilbart_cnn_6_6_decoder',
-    name: 'Distilbart CNN 6-6 Decoder',
-    description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
-    model: 'transformer.js/distilbart-cnn-6-6/decoder_model.onnx',
-    size: '585 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
-    }],
-    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
-  },
-  {
-    category: 'Text Summarization',
-    id: 'distilbart_cnn_6_6_decoder_with_past',
-    name: 'Distilbart CNN 6-6 Decoder w/i Past',
-    description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
-    model: 'transformer.js/distilbart-cnn-6-6/decoder_with_past_model.onnx',
-    size: '537 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'input_ids': ['int64', 99n, [1, 1], {
-        "batch_size": 1,
-        "past_decoder_sequence_length": 168,
-        "encoder_sequence_length_out": 168,
-      }]
-    }],
-    inputstip: '[1, 168] [1, 1]'
-  },
-  {
-    category: 'Text Summarization',
-    id: 'distilbart_cnn_6_6_decoder_merged',
-    name: 'Distilbart CNN 6-6 Decoder KV-Cache',
-    description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
-    model: 'transformer.js/distilbart-cnn-6-6/decoder_model_merged.onnx',
-    size: '585 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-      'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_decoder_sequence_length": 168,
-        "encoder_sequence_length_out": 168,
-      }],
-    }],
-    inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
-  },
-  // {
-  //   category: 'Text Summarization',
-  //   id: 'distilbart_cnn_6_6_decoder_int8',
-  //   name: 'Distilbart CNN 6-6 Decoder',
-  //   description: 'A text summarization model built upon a Transformer model.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
-  //   model: 'transformer.js/distilbart-cnn-6-6/decoder_model_quantized.onnx',
-  //   size: '147 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-  //     'encoder_attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-  //     'encoder_hidden_states': ['float32', 1, [1, 168, 1024], { "batch_size": 1, "encoder_sequence_length": 168 }]
-  //   }],
-  //   inputstip: '[1, 168] [1, 168] [1, 168, 1024]'
-  // },
-  {
-    category: 'Text Summarization',
-    id: 'distilbart_cnn_6_6_encoder',
-    name: 'Distilbart CNN 6-6 Encoder',
-    description: 'A text summarization model built upon a Transformer model.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
-    model: 'transformer.js/distilbart-cnn-6-6/encoder_model.onnx',
-    size: '488 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
-    }],
-    inputstip: '[1, 168] [1, 168]'
-  },
-  // {
-  //   category: 'Text Summarization',
-  //   id: 'distilbart_cnn_6_6_encoder_int8',
-  //   name: 'Distilbart CNN 6-6 Encoder',
-  //   description: 'A text summarization model built upon a Transformer model.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilbart-cnn-6-6',
-  //   model: 'transformer.js/distilbart-cnn-6-6/encoder_model_quantized.onnx',
-  //   size: '122.85 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }],
-  //     'attention_mask': ['int64', 1n, [1, 168], { "batch_size": 1, "encoder_sequence_length": 168 }]
-  //   }],
-  //   inputstip: '[1, 168] [1, 168]'
-  // },
-  {
-    category: 'Fill-Mask',
-    id: 'distilbert_base_uncased',
-    name: 'DistilBERT Base Uncased',
-    description: 'DistilBERT is a transformers model, smaller and faster than BERT, which was pretrained on the same corpus in a self-supervised fashion, using the BERT base model as a teacher.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilbert-base-uncased',
-    model: 'transformer.js/distilbert-base-uncased/model.onnx',
-    size: '255 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-    }],
-    inputstip: '[1, 50] [1, 50]'
-  },
-  // {
-  //   category: 'Fill-Mask',
-  //   id: 'distilbert_base_uncased_int8',
-  //   name: 'DistilBERT Base Uncased',
-  //   description: 'DistilBERT is a transformers model, smaller and faster than BERT, which was pretrained on the same corpus in a self-supervised fashion, using the BERT base model as a teacher.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilbert-base-uncased',
-  //   model: 'transformer.js/distilbert-base-uncased/model_quantized.onnx',
-  //   size: '64.5 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-  //     'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-  //   }],
-  //   inputstip: '[1, 50] [1, 50]'
-  // },
-  {
-    category: 'Question Answering',
-    id: 'distilbert_base_cased_distilled_squad',
-    name: 'DistilBERT Base Cased Distilled Squad',
-    description: 'A small, fast, cheap and light Transformer model trained by distilling BERT base.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilbert-base-cased-distilled-squad',
-    model: 'transformer.js/distilbert-base-cased-distilled-squad/model.onnx',
-    size: '248 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 262], { "batch_size": 1, "sequence_length": 262 }],
-      'attention_mask': ['int64', 1n, [1, 262], { "batch_size": 1, "sequence_length": 262 }]
-    }],
-    inputstip: '[1, 262] [1, 262]'
-  },
-  // {
-  //   category: 'Question Answering',
-  //   id: 'distilbert_base_cased_distilled_squad_int8',
-  //   name: 'DistilBERT Base Cased Distilled Squad',
-  //   description: 'A small, fast, cheap and light Transformer model trained by distilling BERT base.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilbert-base-cased-distilled-squad',
-  //   model: 'transformer.js/distilbert-base-cased-distilled-squad/model_quantized.onnx',
-  //   size: '62.7 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 262], { "batch_size": 1, "sequence_length": 262 }],
-  //     'attention_mask': ['int64', 1n, [1, 262], { "batch_size": 1, "sequence_length": 262 }]
-  //   }],
-  //   inputstip: '[1, 262] [1, 262]'
-  // },
-  {
-    category: 'Zero-Shot Classification',
-    id: 'distilbert_base_uncased_mnli',
-    name: 'DistilBERT Base Uncased Mnli',
-    description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilbert-base-uncased-mnli',
-    model: 'transformer.js/distilbert-base-uncased-mnli/model.onnx',
-    size: '255 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-    }],
-    inputstip: '[1, 50] [1, 50]'
-  },
-  // {
-  //   category: 'Zero-Shot Classification',
-  //   id: 'distilbert_base_uncased_mnli_int8',
-  //   name: 'DistilBERT Base Uncased Mnli',
-  //   description: 'An uncased DistilBERT model fine-tuned on Multi-Genre Natural Language Inference (MNLI) dataset for the zero-shot classification task.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilbert-base-uncased-mnli',
-  //   model: 'transformer.js/distilbert-base-uncased-mnli/model_quantized.onnx',
-  //   size: '64.4 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-  //     'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-  //   }],
-  //   inputstip: '[1, 50] [1, 50]'
-  // },
-  {
-    category: 'Text Generation',
-    id: 'distilgpt2_decoder',
-    name: 'DistilGPT2 Decoder',
-    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilgpt2',
-    model: 'transformer.js/distilgpt2/decoder_model.onnx',
-    size: '313 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-    }],
-    inputstip: '[1, 16] [1, 16]'
-  },
-  {
-    category: 'Text Generation',
-    id: 'distilgpt2_decoder_with_past',
-    name: 'DistilGPT2 Decoder w/i Past',
-    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilgpt2',
-    model: 'transformer.js/distilgpt2/decoder_with_past_model.onnx',
-    size: '313 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "past_sequence_length": 16 }],
-      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "past_sequence_length + 1": 16 }]
-    }],
-    inputstip: '[1, 16] [1, 16]'
-  },
-  {
-    category: 'Text Generation',
-    id: 'distilgpt2_decoder_merged',
-    name: 'DistilGPT2 Decoder KV-Cache',
-    description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
-    note: '',
-    source: 'https://huggingface.co/Xenova/distilgpt2',
-    model: 'transformer.js/distilgpt2/decoder_model_merged.onnx',
-    size: '314 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "attention_mask_sequence_length": 16 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_sequence_length": 16
-      }]
-    }],
-    inputstip: '[1, 16] [1, 16]'
-  },
-  // {
-  //   category: 'Text Generation',
-  //   id: 'distilgpt2_decoder_int8',
-  //   name: 'DistilGPT2 Decoder',
-  //   description: 'An English-language model pre-trained with the supervision of the smallest version of Generative Pre-trained Transformer 2 (GPT-2).',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/distilgpt2',
-  //   model: 'transformer.js/distilgpt2/decoder_model_quantized.onnx',
-  //   size: '79.6 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-  //     'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
-  //   }],
-  //   inputstip: '[1, 16] [1, 16]'
-  // },
+  ...detrResnet50(),
+  ...dinoVitb16(),
+  ...distilbartCnn66Decoder(),
+  ...distilbartCnn66DecoderWithPast(),
+  ...distilbartCnn66DecoderMerged(),
+  ...distilbartCnn66Encoder(),
+  ...distilbertBaseUncased(),
+  ...distilbertBaseCasedDistilledSquad(),
+  ...distilbertBaseUncasedMnli(),
+  ...distilgpt2Decoder(),
+  ...distilgpt2DecoderWithPast(),
+  ...distilgpt2DecoderMerged(),
   {
     category: 'Speech Recognition',
     id: 'distil_medium_en_decoder',
