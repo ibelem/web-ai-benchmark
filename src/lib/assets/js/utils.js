@@ -364,16 +364,12 @@ resultsStore.subscribe((value) => {
 export const getHfUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return modelHosts.hf + models[i].model;
-    }
-  }
-  return null;
-};
-
-export const getHfMirrorUrlById = (id) => {
-  for (let i = 0; i < models.length; i++) {
-    if (models[i].id === id) {
-      return modelHosts.hfmirror + models[i].model;
+      if(models[i].hf && models[i].hf.model){
+        const url = `https://huggingface.co/${models[i].hf.model}/resolve/main/onnx/model${models[i].hf.datatype}.onnx`;
+        return url;
+      } else {
+        return modelHosts.hf + models[i].model;
+      }
     }
   }
   return null;
@@ -391,7 +387,12 @@ export const getAwsUrlById = (id) => {
 export const getLocalUrlById = (id) => {
   for (let i = 0; i < models.length; i++) {
     if (models[i].id === id) {
-      return location.origin + '/' + modelHosts.local + models[i].model;
+      if(models[i].hf && models[i].hf.model){
+        const url = `${location.origin}/${modelHosts.local}${models[i].hf.model}/onnx/model${models[i].hf.datatype}.onnx`;
+        return url;
+      } else {
+        return location.origin + '/' + modelHosts.local + models[i].model;
+      }
     }
   }
   return null;

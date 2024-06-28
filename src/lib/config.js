@@ -96,7 +96,11 @@ export let models = [
     description: 'ALBERT is a transformers model pretrained on a large corpus of English data in a self-supervised fashion, using a masked language modeling (MLM) objective.',
     note: '',
     source: 'https://huggingface.co/Xenova/albert-base-v2/tree/main/onnx',
-    model: 'transformer.js/albert-base-v2/model.onnx',
+    hf: {
+      model: 'xenova/albert-base-v2',
+      datatype: ''
+    },
+    model: '',
     size: '43.1 MB',
     format: 'onnx',
     datatype: 'fp32',
@@ -114,7 +118,11 @@ export let models = [
   //   description: 'ALBERT is a transformers model pretrained on a large corpus of English data in a self-supervised fashion, using a masked language modeling (MLM) objective.',
   //   note: '',
   //   source: 'https://huggingface.co/Xenova/albert-base-v2/tree/main/onnx',
-  //   model: 'transformer.js/albert-base-v2/model_quantized.onnx',
+  //   hf: {
+  //     model: 'xenova/albert-base-v2',
+    //   datatype: '_quantized'
+  //   },
+  //   model: '',
   //   size: '38.3 MB',
   //   format: 'onnx',
   //   datatype: 'int8',

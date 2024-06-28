@@ -1,6 +1,6 @@
 // import * as ort from 'onnxruntime-web';
 import { models, ortDists } from '$lib/config';
-import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, getHfMirrorUrlById, clearConformance } from './utils';
+import { compareObjects, maxDiff, addConformance, updateConformanceLog, loadScript, removeElement, getHfUrlById, getAwsUrlById, getLocalUrlById, clearConformance } from './utils';
 import { ortWebVersionStore, sleepStore, modelDownloadUrlStore, conformanceStore } from '../../store/store';
 import { getGpu, getModelHFUrlById, getModelCategoryById, getModelDescriptionById, getModelInputsRawById, getModelNameById, getModelSizeById } from '$lib/assets/js/utils';
 import { getModelOPFS } from '$lib/assets/js/nn_utils'
@@ -192,8 +192,6 @@ const getModelUrl = (_model) => {
   let modelPath = getHfUrlById(_model);
   if (modelDownloadUrl === 1) {
     modelPath = getHfUrlById(_model);
-  } else if (modelDownloadUrl === 2) {
-    modelPath = getHfMirrorUrlById(_model);
   } else if (modelDownloadUrl === 3) {
     modelPath = getAwsUrlById(_model);
   } else if (modelDownloadUrl === 0) {
