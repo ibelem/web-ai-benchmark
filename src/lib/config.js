@@ -319,7 +319,7 @@ const dinoVitb16 = () => {
   const configs = [
     ['fp32', 'model.onnx', '327 MB'],
     ['fp16', 'model_fp16.onnx', '163 MB'],
-    ['int8', 'model_quantized.onnx', '83.4 MB'],
+    // ['int8', 'model_quantized.onnx', '83.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Feature Extraction',
@@ -344,8 +344,8 @@ const dinoVitb16 = () => {
 const distilbartCnn66Decoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '585 MB'],
-    // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    ['int8', 'decoder_model_quantized.onnx', '147 MB'],
+    // // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
@@ -374,8 +374,8 @@ const distilbartCnn66Decoder = () => {
 const distilbartCnn66DecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '537 MB'],
-    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    ['int8', 'decoder_with_past_model_quantized.onnx', '135 MB'],
+    // // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '135 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
@@ -408,7 +408,7 @@ const distilbartCnn66DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '585 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', '293 MB'],
-    ['int8', 'decoder_model_merged_quantized.onnx', '193 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '193 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
@@ -442,7 +442,7 @@ const distilbartCnn66Encoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '488 MB'],
     ['fp16', 'encoder_model_fp16.onnx', '244 MB'],
-    ['int8', 'encoder_model_quantized.onnx', '122.85 MB'],
+    // ['int8', 'encoder_model_quantized.onnx', '122.85 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Summarization',
@@ -471,7 +471,7 @@ const distilbertBaseUncased = () => {
   const configs = [
     ['fp32', 'model.onnx', '255 MB'],
     ['fp16', 'model_fp16.onnx', '127 MB'],
-    ['int8', 'model_quantized.onnx', '64.5 MB'],
+    // ['int8', 'model_quantized.onnx', '64.5 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Fill-Mask',
@@ -501,7 +501,7 @@ const distilbertBaseCasedDistilledSquad = () => {
   const configs = [
     ['fp32', 'model.onnx', '248 MB'],
     ['fp16', 'model_fp16.onnx', '124 MB'],
-    ['int8', 'model_quantized.onnx', '62.7 MB'],
+    // ['int8', 'model_quantized.onnx', '62.7 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Question Answering',
@@ -530,7 +530,7 @@ const distilbertBaseUncasedMnli = () => {
   const configs = [
     ['fp32', 'model.onnx', '255 MB'],
     ['fp16', 'model_fp16.onnx', '127 MB'],
-    ['int8', 'model_quantized.onnx', '64.4 MB'],
+    // ['int8', 'model_quantized.onnx', '64.4 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Zero-Shot Classification',
@@ -559,7 +559,7 @@ const distilgpt2Decoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '313 MB'],
     ['fp16', 'decoder_model_fp16.onnx', '157 MB'],
-    ['int8', 'decoder_model_quantized.onnx', '79.6 MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '79.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -587,8 +587,8 @@ const distilgpt2Decoder = () => {
 const distilgpt2DecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '313 MB'],
-    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    ['int8', 'decoder_with_past_model_quantized.onnx', '79.6 MB'],
+    // // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '79.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -616,8 +616,8 @@ const distilgpt2DecoderWithPast = () => {
 const distilgpt2DecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '314 MB'],
-    // ['fp16', 'decoder_merged_model_fp16.onnx', ' MB'],
-    ['int8', 'decoder_model_merged_quantized.onnx', '80.9 MB'],
+    // // ['fp16', 'decoder_merged_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '80.9 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text Generation',
@@ -642,6 +642,61 @@ const distilgpt2DecoderMerged = () => {
       }]
     }],
     inputstip: '[1, 16] [1, 16]'
+  }))
+}
+
+const distilMediumEnDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '332 MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '84.6 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Speech Recognition',
+    id: `distil_medium_en_decoder_${dt}`,
+    name: 'Distil-Whisper Decoder',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en',
+    hf: {
+      model: 'distil-whisper/distil-medium.en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 1024]'
+  }))
+}
+
+const distilMediumEnEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '1.14 GB'],
+    // ['int8', 'encoder_model_quantized.onnx', '298 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Speech Recognition',
+    id: `distil_medium_en_encoder_${dt}`,
+    name: 'Distil-Whisper Encoder',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en',
+    hf: {
+      model: 'distil-whisper/distil-medium.en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
+    }],
+    inputstip: '[1, 80, 3000]'
   }))
 }
 
@@ -732,72 +787,8 @@ export let models = [
   ...distilgpt2Decoder(),
   ...distilgpt2DecoderWithPast(),
   ...distilgpt2DecoderMerged(),
-  {
-    category: 'Speech Recognition',
-    id: 'distil_medium_en_decoder',
-    name: 'Distil-Whisper Decoder',
-    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
-    note: '',
-    source: 'https://huggingface.co/distil-whisper/distil-medium.en',
-    model: 'transformer.js/distil-medium.en/decoder_model.onnx',
-    size: '332 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
-    }],
-    inputstip: '[1, 1] [1, 1500, 1024]'
-  },
-  // {
-  //   category: 'Speech Recognition',
-  //   id: 'distil_medium_en_decoder_int8',
-  //   name: 'Distil-Whisper Decoder',
-  //   description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
-  //   note: '',
-  //   source: 'https://huggingface.co/distil-whisper/distil-medium.en',
-  //   model: 'transformer.js/distil-medium.en/decoder_model_quantized.onnx',
-  //   size: '84.6 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-  //     'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
-  //   }],
-  //   inputstip: '[1, 1] [1, 1500, 1024]'
-  // },
-  {
-    category: 'Speech Recognition',
-    id: 'distil_medium_en_encoder',
-    name: 'Distil-Whisper Encoder',
-    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/distil-whisper/distil-medium.en',
-    model: 'transformer.js/distil-medium.en/encoder_model.onnx',
-    size: '1.14 GB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
-    }],
-    inputstip: '[1, 80, 3000]'
-  },
-  // {
-  //   category: 'Speech Recognition',
-  //   id: 'distil_medium_en_encoder_int8',
-  //   name: 'Distil-Whisper Encoder',
-  //   description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
-  //   note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-  //   source: 'https://huggingface.co/distil-whisper/distil-medium.en',
-  //   model: 'transformer.js/distil-medium.en/encoder_model_quantized.onnx',
-  //   size: '298 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }],
-  //   }],
-  //   inputstip: '[1, 80, 3000]'
-  // },
+  ...distilMediumEnDecoder(),
+  ...distilMediumEnEncoder(),
   {
     category: 'Image Classification',
     id: 'efficientnet_lite',
