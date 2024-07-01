@@ -650,7 +650,7 @@ const distilMediumEnDecoder = () => {
     // ['int8', 'decoder_model_quantized.onnx', '84.6 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: `distil_medium_en_decoder_${dt}`,
     name: 'Distil-Whisper Decoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
@@ -672,13 +672,69 @@ const distilMediumEnDecoder = () => {
   }))
 }
 
+const distilMediumEnDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '316 MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '80.6 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    id: `distil_medium_en_decoder_with_past_${dt}`,
+    name: 'Distil-Whisper Decoder w/i Past',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en',
+    hf: {
+      model: 'distil-whisper/distil-medium.en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1] [1, 1500, 1024]'
+  }))
+}
+
+const distilMediumEnDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '332 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '84.7 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Automatic Speech Recognition',
+    id: `distil_medium_en_decoder_merged_${dt}`,
+    name: 'Distil-Whisper Decoder KV-Cache',
+    description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model.',
+    note: '',
+    source: 'https://huggingface.co/distil-whisper/distil-medium.en',
+    hf: {
+      model: 'distil-whisper/distil-medium.en',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 1024], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
+      'use_cache_branch': ['bool', 1, [1], {}]
+    }],
+    inputstip: '[1, 1]'
+  }))
+}
+
 const distilMediumEnEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '1.14 GB'],
     // ['int8', 'encoder_model_quantized.onnx', '298 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: `distil_medium_en_encoder_${dt}`,
     name: 'Distil-Whisper Encoder',
     description: 'ML-powered speech recognition, 49% smaller, 4.2x faster Whisper Speech Recognition model',
@@ -1448,7 +1504,7 @@ const whisperTinyDecoder = () => {
     // ['int8', 'decoder_model_quantized.onnx', '29.0 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: `whisper_tiny_decoder_${dt}`,
     name: 'Whisper Tiny Decoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1477,7 +1533,7 @@ const whisperTinyWithPast = () => {
     // ['int8', 'decoder_with_past_model_quantized.onnx', '27.8 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: `whisper_tiny_decoder_with_past_${dt}`,
     name: 'Whisper Tiny Decoder w/i Past',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1509,7 +1565,7 @@ const whisperTinyMerged = () => {
     // ['int8', 'decoder_model_merged_quantized.onnx', '29.2 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: `whisper_tiny_decoder_merged_${dt}`,
     name: 'Whisper Tiny Decoder KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1542,7 +1598,7 @@ const whisperTinyEncoder = () => {
     // ['int8', 'encoder_model_quantized.onnx', '9.65 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: `whisper_tiny_encoder_${dt}`,
     name: 'Whisper Tiny Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -1650,6 +1706,8 @@ export let models = [
   ...distilgpt2DecoderWithPast(),
   ...distilgpt2DecoderMerged(),
   ...distilMediumEnDecoder(),
+  ...distilMediumEnDecoderWithPast(),
+  ...distilMediumEnDecoderMerged(),
   ...distilMediumEnEncoder(),
   {
     category: 'Image Classification',
@@ -2541,7 +2599,7 @@ export let models = [
   ...whisperTinyMerged(),
   ...whisperTinyEncoder(),
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_decoder_static_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2559,7 +2617,7 @@ export let models = [
     inputstip: '[1, 4] [1, 128] [1]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_decoder_static',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2577,7 +2635,7 @@ export let models = [
     inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_encoder',
     name: 'Whisper Base Encoder',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2593,7 +2651,7 @@ export let models = [
     inputstip: '[1, 80, 3000]'
   }, 
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_decoder_static_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (LayerNorm)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2611,7 +2669,7 @@ export let models = [
     inputstip: '[1, 1] [1, 128] [1]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_decoder_static_gelu_fp16_merged',
     name: 'Whisper Base Decoder Static Shape KV-Cache (Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2629,7 +2687,7 @@ export let models = [
     inputstip: '[1, 1] [1, 128] [1]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_decoder_static_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (LayerNorm)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2647,7 +2705,7 @@ export let models = [
     inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_decoder_static_gelu_fp16',
     name: 'Whisper Base Decoder Static Shape Non-KV-Cache (Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2665,7 +2723,7 @@ export let models = [
     inputstip: '[1, 4] [1, 4] [1, 1500, 512]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_encoder_fp16',
     name: 'Whisper Base Encoder (LayerNorm)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
@@ -2681,7 +2739,7 @@ export let models = [
     inputstip: '[1, 80, 3000]'
   },
   {
-    category: 'Speech Recognition',
+    category: 'Automatic Speech Recognition',
     id: 'whisper_base_encoder_gelu_fp16',
     name: 'Whisper Base Encoder (Gelu)',
     description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',

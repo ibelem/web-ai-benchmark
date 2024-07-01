@@ -331,21 +331,88 @@
 		}
 	}
 
-	.mobilenet_v2,
-	.mobilenet_v3,
-	.efficientnet_lite {
-		background-color: var(--red-005);
+	.mobilenet_v2_12,
+	.efficientnet_lite,
+	.resnet50_v1,
+	.squeezenet,
+	.whisper_base_decoder_static_gelu_merged,
+	.whisper_base_decoder_static_merged,
+	.whisper_base_decoder_static_gelu,
+	.whisper_base_decoder_static,
+	.whisper_base_encoder_gelu,
+	.whisper_base_encoder,
+	.segment_anything_decoder,
+	.segment_anything_encoder,
+	.sd_vae_decoder,
+	.sd_1_5_text_encoder,
+	.sd_1_5_unet,
+	.sd_safety_checker,
+	.sd_turbo_text_encoder_layernorm,
+	.sd_turbo_text_encoder,
+	.sd_turbo_unet_layernorm,
+	.sd_turbo_unet,
+	.detr_resnet_50,
+	.distil_medium_en_decoder,
+	.distil_medium_en_decoder_merged,
+	.distil_medium_en_decoder_with_past,
+	.distil_medium_en_encoder {
+		background-color: rgba(84, 215, 210, 0.05);
+	}
+	
+	.mobilenet_v2_12_fp32,
+	.efficientnet_lite_fp32,
+	.resnet50_v1_fp32,
+	.squeezenet_fp32,
+	.whisper_base_decoder_static_gelu_fp32_merged,
+	.whisper_base_decoder_static_fp32_merged,
+	.whisper_base_decoder_static_gelu_fp32,
+	.whisper_base_decoder_static_fp32,
+	.whisper_base_encoder_gelu_fp32,
+	.whisper_base_encoder_fp32,
+	.segment_anything_decoder_fp32,
+	.segment_anything_encoder_fp32,
+	.sd_vae_decoder_fp32,
+	.sd_1_5_text_encoder_fp32,
+	.sd_1_5_unet_fp32,
+	.sd_safety_checker_fp32,
+	.sd_turbo_text_encoder_layernorm_fp32,
+	.sd_turbo_text_encoder_fp32,
+	.sd_turbo_unet_layernorm_fp32,
+	.sd_turbo_unet_fp32,
+	.detr_resnet_50_fp32,
+	.distil_medium_en_decoder_fp32,
+	.distil_medium_en_decoder_merged_fp32,
+	.distil_medium_en_decoder_with_past_fp32,
+	.distil_medium_en_encoder_fp32 {
+		background-color: rgba(84, 215, 210, 0.05);
 	}
 
-	.mobilenet_v2_fp16,
+	.mobilenet_v2_12_fp16,
 	.efficientnet_lite_fp16,
 	.resnet50_v1_fp16,
-	.squeezenet_fp16 {
-		background-color: var(--green-005);
-	}
-
-	.mobilenet_v2_12_int8 {
-		background-color: var(--p-005);
+	.squeezenet_fp16,
+	.whisper_base_decoder_static_gelu_fp16_merged,
+	.whisper_base_decoder_static_fp16_merged,
+	.whisper_base_decoder_static_gelu_fp16,
+	.whisper_base_decoder_static_fp16,
+	.whisper_base_encoder_gelu_fp16,
+	.whisper_base_encoder_fp16,
+	.segment_anything_decoder_fp16,
+	.segment_anything_encoder_fp16,
+	.sd_vae_decoder_fp16,
+	.sd_1_5_text_encoder_fp16,
+	.sd_1_5_unet_fp16,
+	.sd_safety_checker_fp16,
+	.sd_turbo_text_encoder_layernorm_fp16,
+	.sd_turbo_text_encoder_fp16,
+	.sd_turbo_unet_layernorm_fp16,
+	.sd_turbo_unet_fp16,
+	.detr_resnet_50_fp16,
+	.distil_medium_en_decoder_fp16,
+	.distil_medium_en_decoder_merged_fp16,
+	.distil_medium_en_decoder_with_past_fp16,
+	.distil_medium_en_encoder_fp16 {
+		background-color: rgba(84, 215, 210, 0.05);
 	}
 
 	.kvcache {
