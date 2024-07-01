@@ -733,7 +733,7 @@ const flanT5SmallDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '221 MB'],
     // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
-    ['int8', 'decoder_model_quantized.onnx', '56.2 MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '56.2 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -763,7 +763,7 @@ const flanT5SmallDecoderWithPast = () => {
   const configs = [
     ['fp32', 'decoder_with_past_model.onnx', '209 MB'],
     // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
-    ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -793,7 +793,7 @@ const flanT5SmallDecoderMerged = () => {
   const configs = [
     ['fp32', 'decoder_model_merged.onnx', '222 MB'],
     ['fp16', 'decoder_model_merged_fp16.onnx', ' 111 MB'],
-    ['int8', 'decoder_model_merged_quantized.onnx', '56.5 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '56.5 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -827,7 +827,7 @@ const flanT5SmallEncoder = () => {
   const configs = [
     ['fp32', 'encoder_model.onnx', '134 MB'],
     ['fp16', 'encoder_model_fp16.onnx', ' 67.5 MB'],
-    ['int8', 'encoder_model_quantized.onnx', '34.1 MB'],
+    // ['int8', 'encoder_model_quantized.onnx', '34.1 MB'],
   ]
   return configs.map(([dt, file, size]) => ({
     category: 'Text2Text Generation',
@@ -849,6 +849,746 @@ const flanT5SmallEncoder = () => {
       'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
     }],
     inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
+const mobileVitSmall = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '21.5 MB'],
+    ['fp16', 'model_fp16.onnx', '11.0 MB'],
+    // ['int8', 'model_quantized.onnx', '6.01 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    id: `mobilevit_small_${dt}`,
+    name: 'MobileViT Small',
+    description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/mobilevit-small',
+    hf: {
+      model: 'xenova/mobilevit-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
+    inputstip: '[1, 3, 256, 256]'
+  }))
+}
+
+const msmarcoDistilbertBaseV4 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '253 MB'],
+    ['fp16', 'model_fp16.onnx', ' 126 MB'],
+    // ['int8', 'model_quantized.onnx', '63.8 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    id: `msmarco_distilbert_base_v4_${dt}`,
+    name: 'MS MARCO DistilBert Base v4',
+    description: 'The sentence-transformers model maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/msmarco-distilbert-base-v4',
+    hf: {
+      model: 'xenova/msmarco-distilbert-base-v4',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  }))
+}
+
+const mt5SmallDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '1.04 GB'],
+    // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '270 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `mt5_small_decoder_${dt}`,
+    name: 'mT5 Small Decoder',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small',
+    hf: {
+      model: 'xenova/mt5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  }))
+}
+ 
+const mt5SmallDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '1.03 GB'],
+    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '147 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `mt5_small_decoder_with_past_${dt}`,
+    name: 'mT5 Small Decoder w/i Past',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small',
+    hf: {
+      model: 'xenova/mt5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+  }))
+}
+ 
+const mt5SmallDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '1.04 GB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '537 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '147 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `mt5_small_decoder_merged_${dt}`,
+    name: 'mT5 Small Decoder KV-Cache',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small',
+    hf: {
+      model: 'xenova/mt5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128
+      }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  }))
+}
+
+const mt5SmallEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '560 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', '280 MB'],
+    // ['int8', 'encoder_model_quantized.onnx', '140 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text2Text Generation',
+    id: `mt5_small_encoder_${dt}`,
+    name: 'mT5 Small Encoder',
+    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
+    note: 'Large model.It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/mt5-small',
+    hf: {
+      model: 'xenova/mt5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128]'
+  }))
+}
+const samVitBase = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '358 MB'],
+    ['fp16', 'model_fp16.onnx', '179 MB'],
+    // ['int8', 'model_quantized.onnx', '100 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Semantic Segmentation',
+    id: `sam_vit_base_${dt}`,
+    name: 'SAM ViT Base',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base',
+    hf: {
+      model: 'xenova/sam-vit-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+    }],
+    inputstip: '[1, 3, 1024, 1024] [1, 1, 1, 2]'
+  }))
+}
+
+const samVitBasePromptEncoderMaskDecoder = () => {
+  const configs = [
+    ['fp32', 'prompt_encoder_mask_decoder.onnx', '15.7 MB'],
+    // ['int8', 'prompt_encoder_mask_decoder_quantized.onnx', '4.67 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Semantic Segmentation',
+    id: `sam_vit_base_prompt_encoder_mask_decoder_${dt}`,
+    name: 'SAM ViT Base Prompt/Mask Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base',
+    hf: {
+      model: 'xenova/sam-vit-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1, 1, 2] [1, 256, 64, 64] [1, 256, 64, 64]'
+  }))
+}
+
+const samVitBasePromptEncoderMaskDecoderFP16 = () => {
+  const configs = [
+    ['fp16', 'prompt_encoder_mask_decoder_fp16.onnx', '8.15 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Semantic Segmentation',
+    id: `sam_vit_base_prompt_encoder_mask_decoder_${dt}`,
+    name: 'SAM ViT Base Prompt/Mask Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base',
+    hf: {
+      model: 'xenova/sam-vit-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'input_labels': ['int64', 1n, [1, 1, 1], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
+      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
+    }],
+    inputstip: '[1, 1, 1, 2] [1, 256, 64, 64] [1, 256, 64, 64]'
+  }))
+}
+
+const samVitBaseVisionEncoder = () => {
+  const configs = [
+    ['fp32', 'vision_encoder.onnx', '342 MB'],
+    ['fp16', 'vision_encoder_fp16.onnx', '171 MB'],
+    // ['int8', 'vision_encoder_quantized.onnx', '96.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Semantic Segmentation',
+    id: `sam_vit_base_vision_encoder_${dt}`,
+    name: 'SAM ViT Base Vision Encoder',
+    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
+    note: '',
+    source: 'https://huggingface.co/Xenova/sam-vit-base',
+    hf: {
+      model: 'xenova/sam-vit-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }]
+    }],
+    inputstip: '[1, 3, 1024, 1024]'
+  }))
+}
+
+const squeezebertUncased = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '192 MB'],
+    ['fp16', 'model_fp16.onnx', '96.5 MB'],
+    // ['int8', 'model_quantized.onnx', '48.8 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Order Prediction (SOP)',
+    id: `squeezebert_uncased_${dt}`,
+    name: 'SqueezeBERT Uncased',
+    description: 'A pretrained model for the English language using a masked language modeling (MLM) and Sentence Order Prediction (SOP) objective. This model is case-insensitive. The authors found that SqueezeBERT is 4.3x faster than bert-base-uncased on a Google Pixel 3 smartphone.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/squeezebert-uncased',
+    hf: {
+      model: 'xenova/squeezebert-uncased',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'token_type_ids': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
+  }))
+}
+
+const t5SmallDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '158.95 MB'],
+    // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '40.2 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-To-Text Translation',
+    id: `t5_small_decoder_${dt}`,
+    name: 'T5 Small Decoder',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  }))
+}
+ 
+const t5SmallDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '146 MB'],
+    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '37.1 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-To-Text Translation',
+    id: `t5_small_decoder_with_past_${dt}`,
+    name: 'T5 Small Decoder w/i Past',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
+  }))
+}
+
+const t5SmallDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '159 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '79.8 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '40.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-To-Text Translation',
+    id: `t5_small_decoder_merged_${dt}`,
+    name: 'T5 Small Decoder KV-Cache',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 128
+      }]
+    }],
+    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
+  }))
+}
+
+const t5SmallEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '134 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', '67.4 MB'],
+    // ['int8', 'encoder_model_quantized.onnx', '33.99 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Text-To-Text Translation',
+    id: `t5_small_encoder_${dt}`,
+    name: 'T5 Small Encoder',
+    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/t5-small',
+    hf: {
+      model: 'xenova/t5-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
+const vitBasePatch16224 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '330 MB'],
+    ['fp16', 'model_fp16.onnx', '165 MB'],
+    // ['int8', 'model_quantized.onnx', '84.17 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image Classification',
+    id: `vit_base_patch16_224_${dt}`,
+    name: 'Vision Transformer (ViT) Base-sized',
+    description: 'Vision Transformer (ViT) model pre-trained on ImageNet-21k (14 million images, 21,843 classes) at resolution 224x224, and fine-tuned on ImageNet 2012.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/vit-base-patch16-224',
+    hf: {
+      model: 'xenova/vit-base-patch16-224',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
+const vitGpt2ImageCaptioningDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '584 MB'],
+    // ['fp16', 'decoder_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '149 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-to-Text',
+    id: `vit_gpt2_image_captioning_decoder_${dt}`,
+    name: 'ViT GPT2 Image Captioning Decoder',
+    description: 'An image captioning model using transformers.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
+    hf: {
+      model: 'xenova/vit-gpt2-image-captioning',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168, 768]'
+  }))
+}
+
+const vitGpt2ImageCaptioningDecoderWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '584 MB'],
+    // ['fp16', 'decoder_with_past_model_fp16.onnx', ' MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '149 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-to-Text',
+    id: `vit_gpt2_image_captioning_decoder_with_past_${dt}`,
+    name: 'ViT GPT2 Image Captioning Decoder w/i Past',
+    description: 'An image captioning model using transformers.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
+    hf: {
+      model: 'xenova/vit-gpt2-image-captioning',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
+    }],
+    inputstip: '[1, 1] [1, 168, 768]'
+  }))
+}
+ 
+const vitGpt2ImageCaptioningDecoderMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '586 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '295 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '149.04 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-to-Text',
+    id: `vit_gpt2_image_captioning_decoder_merged_${dt}`,
+    name: 'ViT GPT2 Image Captioning Decoder KV-Cache',
+    description: 'An image captioning model using transformers.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
+    hf: {
+      model: 'xenova/vit-gpt2-image-captioning',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
+      'use_cache_branch': ['bool', 1, [1], { "past_sequence_length": 168 }]
+    }],
+    inputstip: '[1, 168] [1, 168, 768]'
+  }))
+}
+ 
+const vitGpt2ImageCaptioningEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '327 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', '163 MB'],
+    // ['int8', 'encoder_model_quantized.onnx', '83.40 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Image-to-Text',
+    id: `vit_gpt2_image_captioning_encoder_${dt}`,
+    name: 'ViT GPT2 Image Captioning Encoder',
+    description: 'An image captioning model using transformers.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
+    hf: {
+      model: 'xenova/vit-gpt2-image-captioning',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
+    }],
+    inputstip: '[1, 3, 224, 224]'
+  }))
+}
+
+const whisperTinyDecoder = () => {
+  const configs = [
+    ['fp32', 'decoder_model.onnx', '112 MB'],
+    ['fp16', 'decoder_model_fp16.onnx', '56.6 MB'],
+    // ['int8', 'decoder_model_quantized.onnx', '29.0 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Speech Recognition',
+    id: `whisper_tiny_decoder_${dt}`,
+    name: 'Whisper Tiny Decoder',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/whisper-tiny',
+    hf: {
+      model: 'onnx-community/whisper-tiny',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 384]'
+  }))
+}
+ 
+const whisperTinyWithPast = () => {
+  const configs = [
+    ['fp32', 'decoder_with_past_model.onnx', '108 MB'],
+    ['fp16', 'decoder_with_past_model_fp16.onnx', '54.3 MB'],
+    // ['int8', 'decoder_with_past_model_quantized.onnx', '27.8 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Speech Recognition',
+    id: `whisper_tiny_decoder_with_past_${dt}`,
+    name: 'Whisper Tiny Decoder w/i Past',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/whisper-tiny',
+    hf: {
+      model: 'onnx-community/whisper-tiny',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], {
+        "batch_size": 1,
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 1500
+      }],
+    }],
+    inputstip: '[1, 1]'
+  }))
+}
+ 
+const whisperTinyMerged = () => {
+  const configs = [
+    ['fp32', 'decoder_model_merged.onnx', '113 MB'],
+    ['fp16', 'decoder_model_merged_fp16.onnx', '56.8 MB'],
+    // ['int8', 'decoder_model_merged_quantized.onnx', '29.2 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Speech Recognition',
+    id: `whisper_tiny_decoder_merged_${dt}`,
+    name: 'Whisper Tiny Decoder KV-Cache',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/whisper-tiny',
+    hf: {
+      model: 'onnx-community/whisper-tiny',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
+      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
+      'use_cache_branch': ['bool', 1, [1], {
+        "past_decoder_sequence_length": 128,
+        "encoder_sequence_length_out": 1500
+      }]
+    }],
+    inputstip: '[1, 1] [1, 1500, 384]'
+  }))
+}
+ 
+const whisperTinyEncoder = () => {
+  const configs = [
+    ['fp32', 'encoder_model.onnx', '31.3 MB'],
+    ['fp16', 'encoder_model_fp16.onnx', '15.7 MB'],
+    // ['int8', 'encoder_model_quantized.onnx', '9.65 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Speech Recognition',
+    id: `whisper_tiny_encoder_${dt}`,
+    name: 'Whisper Tiny Encoder',
+    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/whisper-tiny',
+    hf: {
+      model: 'onnx-community/whisper-tiny',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
+    }],
+    inputstip: '[1, 80, 3000]'
+  }))
+}
+
+const xlmRobertaBase = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.03 GB'],
+    ['fp16', 'model_fp16.onnx', '531 MB'],
+    // ['int8', 'model_quantized.onnx', '267 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Fill-Mask',
+    id: `xlm_roberta_base_${dt}`,
+    name: 'XLM-RoBERTa Base',
+    description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Xenova/xlm-roberta-base',
+    hf: {
+      model: 'xenova/xlm-roberta-base',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
+      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
+    }],
+    inputstip: '[1, 50] [1, 50]'
   }))
 }
 
@@ -967,6 +1707,7 @@ export let models = [
     inputs: [{ 'Input3': ['float32', 'random', [1, 1, 64, 64], {}] }],
     inputstip: '[1, 1, 64, 64]'
   },
+  ...esrgan(),
   {
     category: 'Object Detection',
     id: 'faster_r_cnn_fp16',
@@ -1254,179 +1995,12 @@ export let models = [
     inputs: [{ 'x': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
-  {
-    category: 'Image Classification',
-    id: 'mobilevit_small',
-    name: 'MobileViT Small',
-    description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/mobilevit-small',
-    model: 'transformer.js/mobilevit-small/model.onnx',
-    size: '21.5 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
-    inputstip: '[1, 3, 256, 256]'
-  },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'mobilevit_small_int8',
-  //   name: 'MobileViT Small',
-  //   description: 'MobileViT model pre-trained on ImageNet-1k at resolution 256x256. It was introduced in MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/mobilevit-small',
-  //   model: 'transformer.js/mobilevit-small/model_quantized.onnx',
-  //   size: '6.01 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{ 'pixel_values': ['float32', 'random', [1, 3, 256, 256], { "batch_size": 1, "num_channels": 3, "height": 256, "width": 256 }] }],
-  //   inputstip: '[1, 3, 256, 256]'
-  // },
-  {
-    category: 'Sentence Similarity',
-    id: 'msmarco_distilbert_base_v4',
-    name: 'MS MARCO DistilBert Base v4',
-    description: 'The sentence-transformers model maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/msmarco-distilbert-base-v4',
-    model: 'transformer.js/msmarco-distilbert-base-v4/model.onnx',
-    size: '253 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-    }],
-    inputstip: '[1, 50] [1, 50]'
-  },
-  // {
-  //   category: 'Sentence Similarity',
-  //   id: 'msmarco_distilbert_base_v4_int8',
-  //   name: 'MS MARCO DistilBert Base v4',
-  //   description: 'The sentence-transformers model maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/msmarco-distilbert-base-v4',
-  //   model: 'transformer.js/msmarco-distilbert-base-v4/model_quantized.onnx',
-  //   size: '63.8 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-  //     'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-  //   }],
-  //   inputstip: '[1, 50] [1, 50]'
-  // },
-  {
-    category: 'Text2Text Generation',
-    id: 'mt5_small_decoder',
-    name: 'mT5 Small Decoder',
-    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/mt5-small',
-    model: 'transformer.js/mt5-small/decoder_model.onnx',
-    size: '1.04 GB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  },
-  {
-    category: 'Text2Text Generation',
-    id: 'mt5_small_decoder_with_past',
-    name: 'mT5 Small Decoder w/i Past',
-    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/mt5-small',
-    model: 'transformer.js/mt5-small/decoder_with_past_model.onnx',
-    size: '1.03 GB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
-  },
-  {
-    category: 'Text2Text Generation',
-    id: 'mt5_small_decoder_merged',
-    name: 'mT5 Small Decoder KV-Cache',
-    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/mt5-small',
-    model: 'transformer.js/mt5-small/decoder_model_merged.onnx',
-    size: '1.04 GB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_decoder_sequence_length": 128,
-        "encoder_sequence_length_out": 128
-      }]
-    }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  },
-  // {
-  //   category: 'Text2Text Generation',
-  //   id: 'mt5_small_decoder_int8',
-  //   name: 'mT5 Small Decoder',
-  //   description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/mt5-small',
-  //   model: 'transformer.js/mt5-small/decoder_model_quantized.onnx',
-  //   size: '270 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-  //     'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-  //     'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-  //   }],
-  //   inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  // },
-  {
-    category: 'Text2Text Generation',
-    id: 'mt5_small_encoder',
-    name: 'mT5 Small Encoder',
-    description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-    note: 'Large model.It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/mt5-small',
-    model: 'transformer.js/mt5-small/encoder_model.onnx',
-    size: '560 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 128]'
-  },
-  // {
-  //   category: 'Text2Text Generation',
-  //   id: 'mt5_small_encoder_int8',
-  //   name: 'mT5 Small Encoder',
-  //   description: 'mT5 is pretrained on the mC4 corpus, covering 101 languages',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/mt5-small',
-  //   model: 'transformer.js/mt5-small/encoder_model_quantized.onnx',
-  //   size: '140 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
-  //   }],
-  //   inputstip: '[1, 128] [1, 128]'
-  // },
-  ...esrgan(),
+  ...mobileVitSmall(),
+  ...msmarcoDistilbertBaseV4(), 
+  ...mt5SmallDecoder(),
+  ...mt5SmallDecoderWithPast(),
+  ...mt5SmallDecoderMerged(),
+  ...mt5SmallEncoder(),
   {
     category: 'Image Classification',
     id: 'resnet50_v1',
@@ -1504,109 +2078,10 @@ export let models = [
     inputs: [{ 'input_image': ['float32', 1., [224, 224, 3], { "image_height": 224, "image_width": 224 }] }],
     inputstip: '[224, 224, 3]'
   },
-  {
-    category: 'Semantic Segmentation',
-    id: 'sam_vit_base',
-    name: 'SAM ViT Base',
-    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
-    note: '',
-    source: 'https://huggingface.co/Xenova/sam-vit-base',
-    model: 'transformer.js/sam-vit-base/model.onnx',
-    size: '358 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
-      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
-    }],
-    inputstip: '[1, 3, 1024, 1024] [1, 1, 1, 2]'
-  },
-  {
-    category: 'Semantic Segmentation',
-    id: 'sam_vit_base_prompt_encoder_mask_decoder',
-    name: 'SAM ViT Base Prompt/Mask Encoder',
-    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
-    note: '',
-    source: 'https://huggingface.co/Xenova/sam-vit-base',
-    model: 'transformer.js/sam-vit-base/prompt_encoder_mask_decoder.onnx',
-    size: '15.7 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
-      'image_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
-      'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
-    }],
-    inputstip: '[1, 1, 1, 2] [1, 256, 64, 64] [1, 256, 64, 64]'
-  },
-  {
-    category: 'Semantic Segmentation',
-    id: 'sam_vit_base_vision_encoder',
-    name: 'SAM ViT Base Vision Encoder',
-    description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
-    note: '',
-    source: 'https://huggingface.co/Xenova/sam-vit-base',
-    model: 'transformer.js/sam-vit-base/vision_encoder.onnx',
-    size: '342 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }]
-    }],
-    inputstip: '[1, 3, 1024, 1024]'
-  },
-  // {
-  //   category: 'Semantic Segmentation',
-  //   id: 'sam_vit_base_int8',
-  //   name: 'SAM ViT Base',
-  //   description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/sam-vit-base',
-  //   model: 'transformer.js/sam-vit-base/model_quantized.onnx',
-  //   size: '100 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }],
-  //     'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
-  //   }],
-  //   inputstip: '[1, 3, 1024, 1024] [1, 1, 1, 2]'
-  // },
-  // {
-  //   category: 'Semantic Segmentation',
-  //   id: 'sam_vit_base_prompt_encoder_mask_decoder_int8',
-  //   name: 'SAM ViT Base Prompt/Mask Encoder',
-  //   description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/sam-vit-base',
-  //   model: 'transformer.js/sam-vit-base/prompt_encoder_mask_decoder_quantized.onnx',
-  //   size: '4.6.7 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_points': ['float32', 'random', [1, 1, 1, 2], { "batch_size": 1, "point_batch_size": 1, "nb_points_per_image": 1 }],
-  //     'image_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
-  //     'image_positional_embeddings': ['float32', 'random', [1, 256, 64, 64], { "batch_size": 1 }],
-  //   }],
-  //   inputstip: '[1, 1, 1, 2] [1, 256, 64, 64] [1, 256, 64, 64]'
-  // },
-  // {
-  //   category: 'Semantic Segmentation',
-  //   id: 'sam_vit_base_vision_encoder_int8',
-  //   name: 'SAM ViT Base Vision Encoder',
-  //   description: 'The ViT Base (ViT-B) version of Segment Anything Model (SAM) produces high quality object masks from input prompts such as points or boxes, and it can be used to generate masks for all objects in an image',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/sam-vit-base',
-  //   model: 'transformer.js/sam-vit-base/vision_encoder_quantized.onnx',
-  //   size: '96.4 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'pixel_values': ['float32', 'random', [1, 3, 1024, 1024], { "batch_size": 1 }]
-  //   }],
-  //   inputstip: '[1, 3, 1024, 1024]'
-  // },
-
+  ...samVitBase(),
+  ...samVitBasePromptEncoderMaskDecoder(),
+  ...samVitBasePromptEncoderMaskDecoderFP16(),
+  ...samVitBaseVisionEncoder(),
   {
     category: 'Text To Image',
     id: 'sd_turbo_text_encoder_fp32',
@@ -1952,42 +2427,7 @@ export let models = [
   //   inputs: [{ 'input': ['float32', 'random', [1, 3, 224, 224], {}] }],
   //   inputstip: '[1, 3, 224, 224]'
   // },
-  {
-    category: 'Sentence Order Prediction (SOP)',
-    id: 'squeezebert_uncased',
-    name: 'SqueezeBERT Uncased',
-    description: 'A pretrained model for the English language using a masked language modeling (MLM) and Sentence Order Prediction (SOP) objective. This model is case-insensitive. The authors found that SqueezeBERT is 4.3x faster than bert-base-uncased on a Google Pixel 3 smartphone.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/squeezebert-uncased',
-    model: 'transformer.js/squeezebert-uncased/model.onnx',
-    size: '192 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'token_type_ids': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-    }],
-    inputstip: '[1, 50] [1, 50]'
-  },
-  // {
-  //   category: 'Sentence Order Prediction (SOP)',
-  //   id: 'squeezebert_uncased_int8',
-  //   name: 'SqueezeBERT Uncased',
-  //   description: 'A pretrained model for the English language using a masked language modeling (MLM) and Sentence Order Prediction (SOP) objective. This model is case-insensitive. The authors found that SqueezeBERT is 4.3x faster than bert-base-uncased on a Google Pixel 3 smartphone.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/squeezebert-uncased',
-  //   model: 'transformer.js/squeezebert-uncased/model_quantized.onnx',
-  //   size: '48.8 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-  //     'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-  //     'token_type_ids': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-  //   }],
-  //   inputstip: '[1, 50] [1, 50]'
-  // },
+  ...squeezebertUncased(),
   {
     category: 'Image Classification',
     id: 'squeezenet',
@@ -2072,116 +2512,11 @@ export let models = [
   //   inputs: [{ 'inputs': ['float32', 'random', [1, 224, 224, 3], {"unk__6578": 1, "unk__6579": 224, "unk__6580": 224 }] }],
   //   inputstip: '[1, 224, 224, 3]'
   // },
-  {
-    category: 'Text-To-Text Translation',
-    id: 't5_small_decoder',
-    name: 'T5 Small Decoder',
-    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/t5-small',
-    model: 'transformer.js/t5-small/decoder_model.onnx',
-    size: '158.95 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  },
-  {
-    category: 'Text-To-Text Translation',
-    id: 't5_small_decoder_with_past',
-    name: 'T5 Small Decoder w/i Past',
-    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/t5-small',
-    model: 'transformer.js/t5-small/decoder_with_past_model.onnx',
-    size: '146 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 128, "past_decoder_sequence_length": 128, "encoder_sequence_length_out": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 1] [1, 128, 512]'
-  },
-  {
-    category: 'Text-To-Text Translation',
-    id: 't5_small_decoder_merged',
-    name: 'T5 Small Decoder KV-Cache',
-    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/t5-small',
-    model: 'transformer.js/t5-small/decoder_model_merged.onnx',
-    size: '159 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_decoder_sequence_length": 128,
-        "encoder_sequence_length_out": 128
-      }]
-    }],
-    inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  },
-  // {
-  //   category: 'Text-To-Text Translation',
-  //   id: 't5_small_decoder_int8',
-  //   name: 'T5 Small Decoder',
-  //   description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/t5-small',
-  //   model: 'transformer.js/t5-small/decoder_model_quantized.onnx',
-  //   size: '40.20 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "decoder_sequence_length": 128 }],
-  //     'encoder_attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-  //     'encoder_hidden_states': ['float32', 'random', [1, 128, 512], { "batch_size": 1, "encoder_sequence_length": 128 }]
-  //   }],
-  //   inputstip: '[1, 128] [1, 128] [1, 128, 512]'
-  // },
-  {
-    category: 'Text-To-Text Translation',
-    id: 't5_small_encoder',
-    name: 'T5 Small Encoder',
-    description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/t5-small',
-    model: 'transformer.js/t5-small/encoder_model.onnx',
-    size: '134 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
-    }],
-    inputstip: '[1, 128] [1, 128]'
-  },
-  // {
-  //   category: 'Text-To-Text Translation',
-  //   id: 't5_small_encoder_int8',
-  //   name: 'T5 Small Encoder',
-  //   description: 'A Text-To-Text transfer transformer model, reframing all NLP tasks into a unified text-to-text-format where the input and output are always text strings.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/t5-small',
-  //   model: 'transformer.js/t5-small/encoder_model_quantized.onnx',
-  //   size: '33.99 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }],
-  //     'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "encoder_sequence_length": 128 }]
-  //   }],
-  //   inputstip: '[1, 128] [1, 128]'
-  // },
+  ...t5SmallDecoder(),
+  ...t5SmallDecoderWithPast(),
+  ...t5SmallDecoderMerged(),
+  ...t5SmallEncoder(),
+
   {
     category: 'Object Detection',
     id: 'tinyyolo_v2',
@@ -2196,197 +2531,15 @@ export let models = [
     inputs: [{ 'image': ['float32', 'random', [1, 3, 416, 416], { "None": 1 }] }],
     inputstip: '[1, 3, 416, 416]'
   },
-  {
-    category: 'Image Classification',
-    id: 'vit_base_patch16_224',
-    name: 'Vision Transformer (ViT) Base-sized',
-    description: 'Vision Transformer (ViT) model pre-trained on ImageNet-21k (14 million images, 21,843 classes) at resolution 224x224, and fine-tuned on ImageNet 2012.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/vit-base-patch16-224/tree/main',
-    model: 'transformer.js/vit-base-patch16-224/model.onnx',
-    size: '330 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
-    }],
-    inputstip: '[1, 3, 224, 224]'
-  },
-  // {
-  //   category: 'Image Classification',
-  //   id: 'vit_base_patch16_224_int8',
-  //   name: 'Vision Transformer (ViT) Base-sized',
-  //   description: 'Vision Transformer (ViT) model pre-trained on ImageNet-21k (14 million images, 21,843 classes) at resolution 224x224, and fine-tuned on ImageNet 2012.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/vit-base-patch16-224/tree/main',
-  //   model: 'transformer.js/vit-base-patch16-224/model_quantized.onnx',
-  //   size: '84.17 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
-  //   }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
-  {
-    category: 'Image-to-Text',
-    id: 'vit_gpt2_image_captioning_decoder',
-    name: 'ViT GPT2 Image Captioning Decoder',
-    description: 'An image captioning model using transformers.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
-    model: 'transformer.js/vit-gpt2-image-captioning/decoder_model.onnx',
-    size: '584 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
-    }],
-    inputstip: '[1, 168] [1, 168, 768]'
-  },
-  {
-    category: 'Image-to-Text',
-    id: 'vit_gpt2_image_captioning_decoder_with_past',
-    name: 'ViT GPT2 Image Captioning Decoder w/i Past',
-    description: 'An image captioning model using transformers.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
-    model: 'transformer.js/vit-gpt2-image-captioning/decoder_with_past_model.onnx',
-    size: '584 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 168 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
-    }],
-    inputstip: '[1, 1] [1, 168, 768]'
-  },
-  {
-    category: 'Image-to-Text',
-    id: 'vit_gpt2_image_captioning_decoder_merged',
-    name: 'ViT GPT2 Image Captioning Decoder KV-Cache',
-    description: 'An image captioning model using transformers.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
-    model: 'transformer.js/vit-gpt2-image-captioning/decoder_model_merged.onnx',
-    size: '586 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }],
-      'use_cache_branch': ['bool', 1, [1], { "past_sequence_length": 168 }]
-    }],
-    inputstip: '[1, 168] [1, 168, 768]'
-  },
-  // {
-  //   category: 'Image-to-Text',
-  //   id: 'vit_gpt2_image_captioning_decoder_int8',
-  //   name: 'ViT GPT2 Image Captioning Decoder',
-  //   description: 'An image captioning model using transformers.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
-  //   model: 'transformer.js/vit-gpt2-image-captioning/decoder_model_quantized.onnx',
-  //   size: '149.04 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 1n, [1, 168], { "batch_size": 1, "decoder_sequence_length": 168 }],
-  //     'encoder_hidden_states': ['float32', 'random', [1, 168, 768], { "batch_size": 1, "encoder_sequence_length": 168 }]
-  //   }],
-  //   inputstip: '[1, 168] [1, 168, 768]'
-  // },
-  {
-    category: 'Image-to-Text',
-    id: 'vit_gpt2_image_captioning_encoder',
-    name: 'ViT GPT2 Image Captioning Encoder',
-    description: 'An image captioning model using transformers.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
-    model: 'transformer.js/vit-gpt2-image-captioning/encoder_model.onnx',
-    size: '327 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
-    }],
-    inputstip: '[1, 3, 224, 224]'
-  },
-  // {
-  //   category: 'Image-to-Text',
-  //   id: 'vit_gpt2_image_captioning_encoder_int8',
-  //   name: 'ViT GPT2 Image Captioning Encoder',
-  //   description: 'An image captioning model using transformers.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/vit-gpt2-image-captioning',
-  //   model: 'transformer.js/vit-gpt2-image-captioning/encoder_model_quantized.onnx',
-  //   size: '83.40 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'pixel_values': ['float32', 1, [1, 3, 224, 224], { "batch_size": 1, "num_channels": 3, "height": 224, "width": 224 }]
-  //   }],
-  //   inputstip: '[1, 3, 224, 224]'
-  // },
-  {
-    category: 'Speech Recognition',
-    id: 'whisper_tiny_decoder',
-    name: 'Whisper Tiny Decoder',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/whisper-tiny.en',
-    model: 'transformer.js/whisper-tiny.en/decoder_model.onnx',
-    size: '112 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
-    }],
-    inputstip: '[1, 1] [1, 1500, 384]'
-  },
-  {
-    category: 'Speech Recognition',
-    id: 'whisper_tiny_decoder_with_past',
-    name: 'Whisper Tiny Decoder w/i Past',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/whisper-tiny.en',
-    model: 'transformer.js/whisper-tiny.en/decoder_with_past_model.onnx',
-    size: '108 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], {
-        "batch_size": 1,
-        "past_decoder_sequence_length": 128,
-        "encoder_sequence_length_out": 1500
-      }],
-    }],
-    inputstip: '[1, 1]'
-  },
-  {
-    category: 'Speech Recognition',
-    id: 'whisper_tiny_decoder_merged',
-    name: 'Whisper Tiny Decoder KV-Cache',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/whisper-tiny.en',
-    model: 'transformer.js/whisper-tiny.en/decoder_model_merged.onnx',
-    size: '113 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-      'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }],
-      'use_cache_branch': ['bool', 1, [1], {
-        "past_decoder_sequence_length": 128,
-        "encoder_sequence_length_out": 1500
-      }]
-    }],
-    inputstip: '[1, 1] [1, 1500, 384]'
-  },
+  ...vitBasePatch16224(),
+  ...vitGpt2ImageCaptioningDecoder(),
+  ...vitGpt2ImageCaptioningDecoderWithPast(),
+  ...vitGpt2ImageCaptioningDecoderMerged(),
+  ...vitGpt2ImageCaptioningEncoder(),
+  ...whisperTinyDecoder(),
+  ...whisperTinyWithPast(),
+  ...whisperTinyMerged(),
+  ...whisperTinyEncoder(),
   {
     category: 'Speech Recognition',
     id: 'whisper_base_decoder_static_merged',
@@ -2438,56 +2591,7 @@ export let models = [
       'input_features': ['float32', 'random', [1, 80, 3000], {}]
     }],
     inputstip: '[1, 80, 3000]'
-  },
-  // {
-  //   category: 'Speech Recognition',
-  //   id: 'whisper_tiny_decoder_int8',
-  //   name: 'Whisper Tiny Decoder',
-  //   description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/whisper-tiny.en',
-  //   model: 'transformer.js/whisper-tiny.en/decoder_model_quantized.onnx',
-  //   size: '29.05 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 1n, [1, 1], { "batch_size": 1, "decoder_sequence_length": 1 }],
-  //     'encoder_hidden_states': ['float32', 'random', [1, 1500, 384], { "batch_size": 1, "encoder_sequence_length / 2": 1500 }]
-  //   }],
-  //   inputstip: '[1, 1] [1, 1500, 384]'
-  // },
-  {
-    category: 'Speech Recognition',
-    id: 'whisper_tiny_encoder',
-    name: 'Whisper Tiny Encoder',
-    description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-    note: '',
-    source: 'https://huggingface.co/Xenova/whisper-tiny.en',
-    model: 'transformer.js/whisper-tiny.en/encoder_model.onnx',
-    size: '31.3 MB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
-    }],
-    inputstip: '[1, 80, 3000]'
-  },
-  // {
-  //   category: 'Speech Recognition',
-  //   id: 'whisper_tiny_encoder_int8',
-  //   name: 'Whisper Tiny Encoder',
-  //   description: 'A pre-trained model for automatic speech recognition (ASR) and speech translation.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/whisper-tiny.en',
-  //   model: 'transformer.js/whisper-tiny.en/encoder_model_quantized.onnx',
-  //   size: '9.65 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_features': ['float32', 'random', [1, 80, 3000], { "batch_size": 1, "feature_size": 80, "encoder_sequence_length": 3000 }]
-  //   }],
-  //   inputstip: '[1, 80, 3000]'
-  // },
+  }, 
   {
     category: 'Speech Recognition',
     id: 'whisper_base_decoder_static_fp16_merged',
@@ -2592,40 +2696,7 @@ export let models = [
     }],
     inputstip: '[1, 80, 3000]'
   },
-  {
-    category: 'Fill-Mask',
-    id: 'xlm_roberta_base',
-    name: 'XLM-RoBERTa Base',
-    description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
-    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
-    source: 'https://huggingface.co/Xenova/xlm-roberta-base',
-    model: 'transformer.js/xlm-roberta-base/model.onnx',
-    size: '1.03 GB',
-    format: 'onnx',
-    datatype: 'fp32',
-    inputs: [{
-      'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-      'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-    }],
-    inputstip: '[1, 50] [1, 50]'
-  },
-  // {
-  //   category: 'Fill-Mask',
-  //   id: 'xlm_roberta_base_int8',
-  //   name: 'XLM-RoBERTa Base',
-  //   description: 'RoBERTa is a transformers model pretrained on a large corpus in a self-supervised fashion. XLM-RoBERTa is a multilingual version of RoBERTa. It is pre-trained on 2.5TB of filtered CommonCrawl data containing 100 languages.',
-  //   note: '',
-  //   source: 'https://huggingface.co/Xenova/xlm-roberta-base',
-  //   model: 'transformer.js/xlm-roberta-base/model_quantized.onnx',
-  //   size: '267 MB',
-  //   format: 'onnx',
-  //   datatype: 'int8',
-  //   inputs: [{
-  //     'input_ids': ['int64', 99n, [1, 50], { "batch_size": 1, "sequence_length": 50 }],
-  //     'attention_mask': ['int64', 1n, [1, 50], { "batch_size": 1, "sequence_length": 50 }]
-  //   }],
-  //   inputstip: '[1, 50] [1, 50]'
-  // },
+  ...xlmRobertaBase(),
   {
     category: 'Object Detection',
     id: 'yolo_v3_fp16',
@@ -2663,6 +2734,7 @@ export let models = [
 ];
 
 export const cpu = [
+  "Intel Core Ultra 9 288V", "Intel Core Ultra 7 268V", "Intel Core Ultra 7 266V", "Intel Core Ultra 7 258V", "Intel Core Ultra 7 256V", "Intel Core Ultra 5 238V", "Intel Core Ultra 5 236V", "Intel Core Ultra 5 228V", "Intel Core Ultra 5 226V",
   "Intel Core Ultra 7 155H", "Intel Core Ultra 7 155U", "Intel Core Ultra 7 164U", "Intel Core Ultra 7 165H", "Intel Core Ultra 7 165U", "Intel Core Ultra 9 185H",
   "Intel Core Ultra 5 125H", "Intel Core Ultra 5 125U", "Intel Core Ultra 5 134U", "Intel Core Ultra 5 135H", "Intel Core Ultra 5 135U",
   "Intel Core 3 100U", "Intel Core 5 120U", "Intel Core 7 150U",
