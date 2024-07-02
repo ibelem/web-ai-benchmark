@@ -9,15 +9,10 @@ body {
   font-size: 13px;
 }
 
-code {
-  
-}
-
 #layout {
   margin: 0 auto;
   width: 90%;
 }
-
 
 a {
   text-decoration: dashed;

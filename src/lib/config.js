@@ -937,6 +937,36 @@ const flanT5SmallEncoder = () => {
   }))
 }
 
+const gteSmall = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '126 MB'],
+    ['fp16', 'model_fp16.onnx', '63.6 MB'],
+    ['int8', 'model_quantized.onnx', '32.4 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    id: `gte_small_${dt}`,
+    name: 'General Text Embeddings (GTE) Small',
+    description: 'To be applied to various downstream tasks of text embeddings, including information retrieval, semantic textual similarity, text reranking, etc.',
+    note: '',
+    source: 'https://huggingface.co/Supabase/gte-small',
+    hf: {
+      model: 'supabase/gte-small',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'token_type_ids': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+    }],
+    inputstip: '[1, 16] [1, 16] [1, 16]'
+  }))
+}
+
 const mobileVitSmall = () => {
   const configs = [
     ['fp32', 'model.onnx', '21.5 MB'],
@@ -2197,6 +2227,7 @@ export let models = [
     inputs: [{ 'x': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  ...gteSmall(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(), 
   ...mt5SmallDecoder(),

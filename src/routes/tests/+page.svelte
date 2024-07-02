@@ -349,6 +349,7 @@
 	.distil_medium_en_decoder_with_past,
 	.distil_medium_en_encoder,
 	.efficientnet_lite,
+	.gte_small,
 	.mobilenet_v2_12,
 	.paraphrase_multilingual_mpnet_base_v2,
 	.resnet50_v1,
@@ -362,7 +363,7 @@
 	.whisper_base_encoder,
 	.yolov8n_pose,
 	.yolov8x_pose {
-		background-color: rgba(84, 215, 210, 0.05);
+		background-color: var(--red-005);
 	}
 	
 	.sd_vae_decoder_fp32,
@@ -383,6 +384,7 @@
 	.distil_medium_en_decoder_with_past_fp32,
 	.distil_medium_en_encoder_fp32,
 	.efficientnet_lite_fp32,
+	.gte_small_fp32,
 	.mobilenet_v2_12_fp32,
 	.paraphrase_multilingual_mpnet_base_v2_fp32,
 	.resnet50_v1_fp32,
@@ -396,7 +398,7 @@
 	.whisper_base_encoder_fp32,
 	.yolov8n_pose_fp32,
 	.yolov8x_pose_fp32 {
-		background-color: rgba(84, 215, 210, 0.05);
+		background-color: var(--red-005);
 	}
 
 	.sd_vae_decoder_fp16,
@@ -417,6 +419,7 @@
 	.distil_medium_en_decoder_with_past_fp16,
 	.distil_medium_en_encoder_fp16,
 	.efficientnet_lite_fp16,
+	.gte_small_fp16,
 	.mobilenet_v2_12_fp16,
 	.paraphrase_multilingual_mpnet_base_v2_fp16,
 	.resnet50_v1_fp16,
@@ -430,7 +433,42 @@
 	.whisper_base_encoder_fp16,
 	.yolov8n_pose_fp16,
 	.yolov8x_pose_fp16 {
-		background-color: rgba(84, 215, 210, 0.05);
+		background-color: var(--fp16-005);
+	}
+
+	.sd_vae_decoder_int8,
+	.sd_1_5_text_encoder_int8,
+	.sd_1_5_unet_int8,
+	.sd_safety_checker_int8,
+	.sd_turbo_text_encoder_layernorm_int8,
+	.sd_turbo_text_encoder_int8,
+	.sd_turbo_unet_layernorm_int8,
+	.sd_turbo_unet_int8,
+	.segment_anything_decoder_int8,
+	.segment_anything_encoder_int8,
+	.squeezenet_int8,
+	.detr_resnet_50_int8,
+	.distiluse_base_multilingual_cased_v2_int8,
+	.distil_medium_en_decoder_int8,
+	.distil_medium_en_decoder_merged_int8,
+	.distil_medium_en_decoder_with_past_int8,
+	.distil_medium_en_encoder_int8,
+	.efficientnet_lite_int8,
+	.gte_small_int8,
+	.mobilenet_v2_12_int8,
+	.paraphrase_multilingual_mpnet_base_v2_int8,
+	.resnet50_v1_int8,
+	.whisper_base_decoder_static_gelu_4dmask_int8_merged,
+	.whisper_base_decoder_static_gelu_4dmask_int8,
+	.whisper_base_decoder_static_gelu_int8_merged,
+	.whisper_base_decoder_static_int8_merged,
+	.whisper_base_decoder_static_gelu_int8,
+	.whisper_base_decoder_static_int8,
+	.whisper_base_encoder_gelu_int8,
+	.whisper_base_encoder_int8,
+	.yolov8n_pose_int8,
+	.yolov8x_pose_int8 {
+		background-color: var(--p-005);
 	}
 
 	.kvcache {
