@@ -75,7 +75,7 @@
 		width: 60px;
 		border: 1px solid var(--grey-02);
 		margin-left: -6px;
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		font-size: 12px;
 		color: var(--font);
 	}

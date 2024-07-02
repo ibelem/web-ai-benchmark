@@ -648,7 +648,7 @@
 		border: 0px;
 		background: transparent;
 		color: var(--font);
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		margin: 0;
 		padding: 0;
 		cursor: pointer;

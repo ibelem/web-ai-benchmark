@@ -536,7 +536,11 @@ export const getModelInputsById = (id) => {
 
 export const getModelHFUrlById = (id) => {
   const model = models.find(item => item.id === id);
-  return modelHosts.hf + model?.model;
+  if(model?.hf && model?.hf.model && model?.hf.file) {
+    return `https://huggingface.co/${model.hf.model}/resolve/main/onnx/${model.hf.file}`;
+  } else {
+    return modelHosts.hf + model?.model;
+  }
 }
 
 export const getModelInt8Count = (arr) => {

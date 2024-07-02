@@ -369,7 +369,7 @@
 		border-radius: 4px;
 		padding: 4px 8px;
 		color: var(--b2);
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	#search:hover {
@@ -384,11 +384,11 @@
 	.jsonfile {
 		margin: 0px auto 10px 0;
 		text-align: center;
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 
 	.jsonfile input {
-		font-family: 'Space Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-family: 'JetBrains Mono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		background-color: transparent;
 	}
 

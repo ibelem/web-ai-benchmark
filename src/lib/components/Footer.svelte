@@ -73,9 +73,6 @@
 		padding: 1px 6px;
 		border-radius: 999px;
 	}
-	.copyright {
-		font-family: 'Intel One Mono';
-	}
 
 	.badge {
 		display: inline-block;

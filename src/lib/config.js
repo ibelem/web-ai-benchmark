@@ -644,6 +644,35 @@ const distilgpt2DecoderMerged = () => {
   }))
 }
 
+const distiluseBaseMultilingualCasedV2 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '514 MB'],
+    ['fp16', 'model_fp16.onnx', '257 MB'],
+    ['int8', 'model_quantized.onnx', '129 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    id: `distiluse_base_multilingual_cased_v2_${dt}`,
+    name: 'Distiluse Base Multilingual Cased V2',
+    description: 'Maps sentences & paragraphs to a 512 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/distiluse-base-multilingual-cased-v2',
+    hf: {
+      model: 'xenova/distiluse-base-multilingual-cased-v2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+    }],
+    inputstip: '[1, 16] [1, 16]'
+  }))
+}
+
 const distilMediumEnDecoder = () => {
   const configs = [
     ['fp32', 'decoder_model.onnx', '332 MB'],
@@ -944,7 +973,7 @@ const msmarcoDistilbertBaseV4 = () => {
     category: 'Sentence Similarity',
     id: `msmarco_distilbert_base_v4_${dt}`,
     name: 'MS MARCO DistilBert Base v4',
-    description: 'The sentence-transformers model maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
+    description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
     note: '',
     source: 'https://huggingface.co/Xenova/msmarco-distilbert-base-v4',
     hf: {
@@ -1085,6 +1114,36 @@ const mt5SmallEncoder = () => {
     inputstip: '[1, 128] [1, 128]'
   }))
 }
+
+const paraphraseMultilingualMpnetBaseV2 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '1.03 GB'],
+    ['fp16', 'model_fp16.onnx', '529 MB'],
+    ['int8', 'model_quantized.onnx', '265 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    id: `paraphrase_multilingual_mpnet_base_v2_${dt}`,
+    name: 'Paraphrase Multilingual Mpnet Base V2',
+    description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
+    note: '',
+    source: 'https://huggingface.co/Xenova/paraphrase-multilingual-mpnet-base-v2',
+    hf: {
+      model: 'xenova/paraphrase-multilingual-mpnet-base-v2',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 128], { "batch_size": 1, "sequence_length": 128 }],
+      'attention_mask': ['int64', 1n, [1, 128], { "batch_size": 1, "sequence_length": 128 }]
+    }],
+    inputstip: '[1, 128] [1, 128]'
+  }))
+}
+
 const samVitBase = () => {
   const configs = [
     ['fp32', 'model.onnx', '358 MB'],
@@ -1648,6 +1707,90 @@ const xlmRobertaBase = () => {
   }))
 }
 
+const yoloV8NPose = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '12.8 MB'],
+    ['fp16', 'model_fp16.onnx', '6.47 MB'],
+    // ['int8', 'model_quantized.onnx', '3.58 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    id: `yolov8n_pose_${dt}`,
+    name: 'YOLO v8n Pose',
+    description: 'Real-Time End-to-End Object Detection',
+    note: '',
+    source: 'https://huggingface.co/Xenova/yolov8n-pose',
+    hf: {
+      model: 'xenova/yolov8n-pose',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': ['float32', 'random', [1, 3, 640, 640], { }],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
+const yoloV8XPose = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '265 MB'],
+    ['fp16', 'model_fp16.onnx', '132 MB'],
+    // ['int8', 'model_quantized.onnx', '66.8 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    id: `yolov8x_pose_${dt}`,
+    name: 'YOLO v8x Pose',
+    description: 'Real-Time End-to-End Object Detection',
+    note: '',
+    source: 'https://huggingface.co/Xenova/yolov8x-pose',
+    hf: {
+      model: 'xenova/yolov8x-pose',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': ['float32', 'random', [1, 3, 640, 640], { }],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
+const yoloV10N = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '8.95 MB'],
+    ['fp16', 'model_fp16.onnx', '4.51 MB'],
+    // ['int8', 'model_quantized.onnx', '2.52 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Object Detection',
+    id: `yolov10n_${dt}`,
+    name: 'YOLO v10n',
+    description: 'Real-Time End-to-End Object Detection',
+    note: '',
+    source: 'https://huggingface.co/onnx-community/yolov10n',
+    hf: {
+      model: 'onnx-community/yolov10n',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'images': ['float32', 'random', [1, 3, 640, 640], { }],
+    }],
+    inputstip: '[1, 3, 640, 640]'
+  }))
+}
+
 export let models = [
   {
     category: 'Model Access Check',
@@ -1709,6 +1852,7 @@ export let models = [
   ...distilMediumEnDecoderWithPast(),
   ...distilMediumEnDecoderMerged(),
   ...distilMediumEnEncoder(),
+  ...distiluseBaseMultilingualCasedV2(),
   {
     category: 'Image Classification',
     id: 'efficientnet_lite',
@@ -2059,6 +2203,7 @@ export let models = [
   ...mt5SmallDecoderWithPast(),
   ...mt5SmallDecoderMerged(),
   ...mt5SmallEncoder(),
+  ...paraphraseMultilingualMpnetBaseV2(),
   {
     category: 'Image Classification',
     id: 'resnet50_v1',
@@ -2141,7 +2286,7 @@ export let models = [
   ...samVitBasePromptEncoderMaskDecoderFP16(),
   ...samVitBaseVisionEncoder(),
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_text_encoder_fp32',
     name: 'SD-Turbo text encoder',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2157,7 +2302,7 @@ export let models = [
     inputstip: '[1, 77]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_unet_fp32',
     name: 'SD-Turbo UNet',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2175,7 +2320,7 @@ export let models = [
     inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_vae_decoder_fp32',
     name: 'SD-Turbo VAE Decoder',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2191,7 +2336,7 @@ export let models = [
     inputstip: '[1, 4, 64, 64]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_text_encoder_fp16',
     name: 'SD-Turbo Text Encoder (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2210,7 +2355,7 @@ export let models = [
     inputstip: '[1, 77]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_text_encoder_layernorm_fp16',
     name: 'SD-Turbo Text Encoder (layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2226,7 +2371,7 @@ export let models = [
     inputstip: '[1, 77]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_unet_fp16',
     name: 'SD-Turbo UNet (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2244,7 +2389,7 @@ export let models = [
     inputstip: '[1, 4, 64, 64] [1] [1, 77, 1024]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_turbo_unet_layernorm_fp16',
     name: 'SD-Turbo UNet (layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
@@ -2279,7 +2424,7 @@ export let models = [
     inputstip: '[1, 3, 224, 224] [1, 224, 224, 3]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_1_5_text_encoder_fp16',
     name: 'SD 1.5 text encoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2295,7 +2440,7 @@ export let models = [
     inputstip: '[2, 77]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_1_5_unet_fp16',
     name: 'SD 1.5 UNet (layernorm)',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2313,7 +2458,7 @@ export let models = [
     inputstip: '[2, 4, 64, 64] [2] [2, 77, 768]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_vae_decoder_fp16',
     name: 'SD (1.5 + Turbo) VAE Decoder',
     description: 'Stable Diffusion 1.5, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2329,7 +2474,7 @@ export let models = [
     inputstip: '[1, 4, 64, 64]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_2_1_vae_decoder',
     name: 'SD 2.1 VAE Decoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2350,7 +2495,7 @@ export let models = [
     inputstip: '[1, 4, 64, 64]'
   },
   {
-    category: 'Text To Image',
+    category: 'Text-to-Image',
     id: 'sd_2_1_vae_encoder',
     name: 'SD 2.1 VAE Encoder',
     description: 'Stable Diffusion 2.1, a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.',
@@ -2825,6 +2970,9 @@ export let models = [
   //   }],
   //   inputstip: '[1, 3, 416, 416]'
   // }
+  ...yoloV8NPose(),
+  ...yoloV8XPose(),
+  ...yoloV10N(),
 ];
 
 export const cpu = [
