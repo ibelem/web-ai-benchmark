@@ -937,6 +937,35 @@ const flanT5SmallEncoder = () => {
   }))
 }
 
+const gteBaseEnV1_5 = () => {
+  const configs = [
+    ['fp32', 'model.onnx', '530 MB'],
+    ['fp16', 'model_fp16.onnx', '265 MB'],
+    ['int8', 'model_quantized.onnx', '139 MB'],
+  ]
+  return configs.map(([dt, file, size]) => ({
+    category: 'Sentence Similarity',
+    id: `gte_base_en_v1_5_${dt}`,
+    name: 'General Text Embeddings (GTE) Base EN v1.5',
+    description: 'GTE-v1.5 series upgraded gte embeddings that support the context length of up to 8192, while further enhancing model performance. The models are built upon the transformer++ encoder backbone (BERT + RoPE + GLU).',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
+    source: 'https://huggingface.co/Alibaba-NLP/gte-base-en-v1.5',
+    hf: {
+      model: 'alibaba-nlp/gte-base-en-v1.5',
+      file: `${file}`,
+    },
+    model: '',
+    size: `${size}`,
+    format: 'onnx',
+    datatype: `${dt}`,
+    inputs: [{
+      'input_ids': ['int64', 99n, [1, 16], { "batch_size": 1, "sequence_length": 16 }],
+      'attention_mask': ['int64', 1n, [1, 16], { "batch_size": 1, "sequence_length": 16 }]
+    }],
+    inputstip: '[1, 16] [1, 16] [1, 16]'
+  }))
+}
+
 const gteSmall = () => {
   const configs = [
     ['fp32', 'model.onnx', '126 MB'],
@@ -1156,7 +1185,7 @@ const paraphraseMultilingualMpnetBaseV2 = () => {
     id: `paraphrase_multilingual_mpnet_base_v2_${dt}`,
     name: 'Paraphrase Multilingual Mpnet Base V2',
     description: 'Maps sentences & paragraphs to a 768 dimensional dense vector space and can be used for tasks like clustering or semantic search.',
-    note: '',
+    note: 'Large model. It is recommended to run tests on this large model individually rather than together with other models.',
     source: 'https://huggingface.co/Xenova/paraphrase-multilingual-mpnet-base-v2',
     hf: {
       model: 'xenova/paraphrase-multilingual-mpnet-base-v2',
@@ -2227,6 +2256,7 @@ export let models = [
     inputs: [{ 'x': ['float32', 'random', [1, 3, 224, 224], {}] }],
     inputstip: '[1, 3, 224, 224]'
   },
+  ...gteBaseEnV1_5(),
   ...gteSmall(),
   ...mobileVitSmall(),
   ...msmarcoDistilbertBaseV4(), 
@@ -2406,7 +2436,7 @@ export let models = [
     id: 'sd_turbo_unet_fp16',
     name: 'SD-Turbo UNet (no_layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
-    note: '',
+    note: 'Large model',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'fp16/sd-turbo/unet/model.onnx',
     size: '1.61 GB',
@@ -2424,7 +2454,7 @@ export let models = [
     id: 'sd_turbo_unet_layernorm_fp16',
     name: 'SD-Turbo UNet (layernorm)',
     description: 'SD-Turbo is a distilled version of Stable Diffusion 2.1, based on a novel training method called Adversarial Diffusion Distillation (ADD), which allows sampling large-scale foundational image diffusion models in 1 to 4 steps at high image quality. ',
-    note: '',
+    note: 'Large model',
     source: 'https://huggingface.co/schmuell/sd-turbo-ort-web',
     model: 'fp16/sd-turbo/unet/model_layernorm.onnx',
     size: '1.61 GB',
